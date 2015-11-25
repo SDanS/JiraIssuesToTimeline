@@ -1,0 +1,112 @@
+var timeline_json = {
+   "issue_key" : "MW-1671",
+   "events" : [
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to Done"
+         },
+         "background" : {
+            "color" : "indigo"
+         },
+         "group" : "status",
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 9,
+            "month" : 10,
+            "minute" : 56,
+            "day" : 15
+         }
+      },
+      {
+         "start_date" : {
+            "minute" : 20,
+            "day" : 15,
+            "year" : 2015,
+            "hour" : 9,
+            "month" : 10
+         },
+         "group" : "scope",
+         "background" : {
+            "color" : "palevioletred"
+         },
+         "text" : {
+            "text" : "Description changed from: <br>See https://testrail.cpanel.net/index.php?/tests/view/5472164 for full details.<br><br>To: <br>Correcting issues with test in MW-1649.",
+            "headline" : "Description changed."
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "minute" : 16,
+            "day" : 15,
+            "year" : 2015,
+            "hour" : 7,
+            "month" : 10
+         },
+         "text" : {
+            "text" : "Issue also sighted in https://testrail.cpanel.net/index.php?/tests/view/5488544",
+            "headline" : "Comment added by QA TestRails"
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "start_date" : {
+            "year" : 2015,
+            "month" : 10,
+            "hour" : 8,
+            "day" : 15,
+            "minute" : 40
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "headline" : "Comment added by QA TestRails",
+            "text" : "Issue also sighted in https://testrail.cpanel.net/index.php?/tests/view/5492702"
+         }
+      },
+      {
+         "text" : {
+            "text" : "I think management for mailman might actually be broken here. This is a new failure mode, and it's not totally inconsistent.",
+            "headline" : "Comment added by David Nielson"
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "month" : 10,
+            "hour" : 8,
+            "year" : 2015,
+            "minute" : 57,
+            "day" : 15
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "day" : 15,
+            "minute" : 4,
+            "year" : 2015,
+            "hour" : 9,
+            "month" : 10
+         },
+         "text" : {
+            "text" : "I've marked those failures as \"retest,\" as I haven't been able to reproduce the failure (so far) on my own VMs via cpprove.",
+            "headline" : "Comment added by David Nielson"
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ],
+   "title" : {
+      "text" : {
+         "headline" : "MW-1671: SBCL_ServiceManagement.test"
+      }
+   }
+}

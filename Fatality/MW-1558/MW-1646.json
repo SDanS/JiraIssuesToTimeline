@@ -1,0 +1,229 @@
+var timeline_json = {
+   "parent" : "MW-1558",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1646: Documentation for how to use cpprove"
+      }
+   },
+   "issue_key" : "MW-1646",
+   "events" : [
+      {
+         "group" : "assignee",
+         "start_date" : {
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "3"
+         },
+         "end_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13",
+            "minute" : "4",
+            "day" : "10"
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to George Baugh"
+         }
+      },
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "text" : "Assignee changed from George Baugh to unassigned",
+            "headline" : "Assignee changed."
+         },
+         "start_datetime" : null,
+         "start_date" : {
+            "day" : "10",
+            "minute" : "4",
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11
+         },
+         "end_date" : {
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "25"
+         },
+         "group" : "assignee",
+         "end_datetime" : null
+      },
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Joshua Brandt"
+         },
+         "start_datetime" : null,
+         "end_date" : {
+            "day" : "10",
+            "minute" : "38",
+            "hour" : "16",
+            "year" : "2015",
+            "month" : 11
+         },
+         "start_date" : {
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "25"
+         },
+         "group" : "assignee",
+         "end_datetime" : null
+      },
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Assignee changed from Joshua Brandt to unassigned",
+            "headline" : "Assignee changed."
+         },
+         "group" : "assignee",
+         "start_date" : {
+            "minute" : "38",
+            "day" : "10",
+            "month" : 11,
+            "hour" : "16",
+            "year" : "2015"
+         },
+         "end_date" : {
+            "minute" : "2",
+            "day" : "11",
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015"
+         },
+         "end_datetime" : null
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Progress"
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "end_datetime" : null,
+         "group" : "status",
+         "start_date" : {
+            "day" : "10",
+            "minute" : "3",
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11
+         },
+         "end_date" : {
+            "minute" : "4",
+            "day" : "10",
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015"
+         }
+      },
+      {
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "text" : {
+            "text" : "Status changed from In Progress to In Review",
+            "headline" : "Status changed."
+         },
+         "start_datetime" : null,
+         "end_date" : {
+            "day" : "10",
+            "minute" : "38",
+            "hour" : "16",
+            "year" : "2015",
+            "month" : 11
+         },
+         "start_date" : {
+            "day" : "10",
+            "minute" : "4",
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11
+         },
+         "group" : "status",
+         "end_datetime" : null
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015",
+            "minute" : "3",
+            "day" : "12"
+         },
+         "start_date" : {
+            "day" : "10",
+            "minute" : "38",
+            "hour" : "16",
+            "year" : "2015",
+            "month" : 11
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "darkblue"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Test"
+         }
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "https://cpanel.wiki/display/~george.b/Cpprove+Cookbook<br>https://cpanel.wiki/display/~george.b/TestD+Cookbook<br>https://cpanel.wiki/display/QA/Set+Up+a+Sandbox+on+OpenStack<br>https://cpanel.wiki/display/QA/QAPortal2+User+Guide<br>https://cpanel.wiki/display/QA/How+to+Run+the+SBCL<br>All updated to reflect current reality."
+         },
+         "group" : "misc",
+         "start_date" : {
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 13,
+            "minute" : 4,
+            "day" : 10
+         }
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Comment added by Joshua Brandt",
+            "text" : "Made some very minor changes to punctuation and spacing. Looks good though."
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "hour" : 16,
+            "year" : 2015,
+            "month" : 11,
+            "day" : 10,
+            "minute" : 38
+         }
+      }
+   ]
+}

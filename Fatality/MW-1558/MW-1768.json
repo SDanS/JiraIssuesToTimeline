@@ -1,0 +1,29 @@
+var timeline_json = {
+   "issue_key" : "MW-1768",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1768: Modify testsuite.js to re-add deleted branches to the branch dropdown"
+      }
+   },
+   "parent" : "MW-1558",
+   "events" : [
+      {
+         "start_datetime" : null,
+         "text" : {
+            "text" : "This would also be a good opportunity to wipe/autorefresh the job details table, and the 'pending builds' table.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "minute" : 0,
+            "day" : 20,
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 12
+         }
+      }
+   ]
+}

@@ -1,0 +1,117 @@
+var timeline_json = {
+   "issue_key" : "MW-1740",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1740: Update cP::XMLAPI to work with new cpprove"
+      }
+   },
+   "parent" : "MW-1558",
+   "events" : [
+      {
+         "group" : "status",
+         "start_date" : {
+            "hour" : "0",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "6",
+            "minute" : "0"
+         },
+         "end_date" : {
+            "day" : "9",
+            "minute" : "22",
+            "hour" : "11",
+            "year" : "2015",
+            "month" : 11
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Status changed from In Progress to In Review",
+            "headline" : "Status changed."
+         }
+      },
+      {
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "text" : {
+            "text" : "Status changed from In Review to In Progress",
+            "headline" : "Status changed."
+         },
+         "start_datetime" : null,
+         "end_date" : {
+            "month" : 11,
+            "hour" : "12",
+            "year" : "2015",
+            "minute" : "41",
+            "day" : "10"
+         },
+         "start_date" : {
+            "year" : "2015",
+            "hour" : "11",
+            "month" : 11,
+            "day" : "9",
+            "minute" : "22"
+         },
+         "group" : "status",
+         "end_datetime" : null
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "hour" : 16,
+            "year" : 2015,
+            "month" : 10,
+            "day" : 28,
+            "minute" : 36
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "This still needs work to be right."
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "minute" : 18,
+            "day" : 5,
+            "month" : 11,
+            "hour" : 16,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "Fixed on SWSM, run SBCL_AccountSuspension to be sure it is OK"
+         }
+      },
+      {
+         "start_date" : {
+            "day" : 10,
+            "minute" : 42,
+            "hour" : 12,
+            "year" : 2015,
+            "month" : 11
+         },
+         "group" : "misc",
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "This has been folded into the main cpprove commit, didn't have time to unit test"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ]
+}

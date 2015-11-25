@@ -1,0 +1,418 @@
+var timeline_json = {
+   "parent" : "MW-1558",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1453: Convert Constant Runner to modulino"
+      }
+   },
+   "issue_key" : "MW-1453",
+   "events" : [
+      {
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 14,
+            "minute" : 40,
+            "month" : 11,
+            "day" : 2
+         },
+         "group" : "assignee",
+         "start_date" : {
+            "day" : 6,
+            "month" : 10,
+            "minute" : 28,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "text" : "Assignee changed from unassigned to Joshua Brandt",
+            "headline" : "Assignee changed."
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from Joshua Brandt to unassigned"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 2,
+            "month" : 11,
+            "minute" : 40,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "minute" : 56,
+            "month" : 11,
+            "day" : 2,
+            "year" : 2015,
+            "hour" : 15
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Joshua Brandt"
+         },
+         "start_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "day" : 2,
+            "month" : 11,
+            "minute" : 56
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "end_date" : {
+            "month" : 11,
+            "minute" : 21,
+            "day" : 9,
+            "year" : 2015,
+            "hour" : 11
+         },
+         "group" : "assignee"
+      },
+      {
+         "text" : {
+            "text" : "Assignee changed from Joshua Brandt to unassigned",
+            "headline" : "Assignee changed."
+         },
+         "start_date" : {
+            "hour" : 11,
+            "year" : 2015,
+            "day" : 9,
+            "month" : 11,
+            "minute" : 21
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "end_date" : {
+            "minute" : 58,
+            "month" : 11,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 11
+         },
+         "group" : "assignee"
+      },
+      {
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to David Nielson"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 58,
+            "hour" : 11,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "minute" : 59,
+            "month" : 11,
+            "day" : 10
+         }
+      },
+      {
+         "text" : {
+            "text" : "Assignee changed from David Nielson to unassigned",
+            "headline" : "Assignee changed."
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "minute" : 59,
+            "month" : 11,
+            "hour" : 11,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "month" : 11,
+            "minute" : 59,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 11
+         }
+      },
+      {
+         "group" : "assignee",
+         "start_date" : {
+            "hour" : 11,
+            "year" : 2015,
+            "day" : 10,
+            "month" : 11,
+            "minute" : 59
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "text" : "Assignee changed from unassigned to Joshua Brandt",
+            "headline" : "Assignee changed."
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "day" : 2,
+            "minute" : 56,
+            "month" : 11,
+            "hour" : 15,
+            "year" : 2015
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Progress"
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 12,
+            "minute" : 44,
+            "month" : 10,
+            "day" : 30
+         }
+      },
+      {
+         "end_date" : {
+            "hour" : 11,
+            "year" : 2015,
+            "day" : 9,
+            "minute" : 22,
+            "month" : 11
+         },
+         "group" : "status",
+         "start_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "day" : 2,
+            "minute" : 56,
+            "month" : 11
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "text" : {
+            "text" : "Status changed from In Review to In Progress",
+            "headline" : "Status changed."
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "day" : 9,
+            "minute" : 31,
+            "month" : 11
+         },
+         "text" : {
+            "text" : "Status changed from In Review to In Progress",
+            "headline" : "Status changed."
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "month" : 11,
+            "minute" : 22,
+            "day" : 9
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 10,
+            "minute" : 49,
+            "month" : 11,
+            "day" : 10
+         },
+         "text" : {
+            "text" : "Status changed from In Progress to In Review",
+            "headline" : "Status changed."
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "start_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "day" : 9,
+            "month" : 11,
+            "minute" : 31
+         }
+      },
+      {
+         "end_date" : {
+            "day" : 10,
+            "minute" : 44,
+            "month" : 11,
+            "hour" : 11,
+            "year" : 2015
+         },
+         "group" : "status",
+         "text" : {
+            "text" : "Status changed from In Review to In Progress",
+            "headline" : "Status changed."
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 10,
+            "minute" : 49,
+            "month" : 11,
+            "day" : 10
+         },
+         "background" : {
+            "color" : "darkcyan"
+         }
+      },
+      {
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "month" : 11,
+            "minute" : 44,
+            "day" : 10
+         },
+         "text" : {
+            "text" : "Status changed from In Progress to In Review",
+            "headline" : "Status changed."
+         },
+         "group" : "status",
+         "end_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 11,
+            "hour" : 17,
+            "year" : 2015
+         }
+      },
+      {
+         "group" : "status",
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Test to Merge Pending"
+         },
+         "background" : {
+            "color" : "slateblue"
+         },
+         "start_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 11,
+            "hour" : 17,
+            "year" : 2015
+         }
+      },
+      {
+         "group" : "scope",
+         "text" : {
+            "text" : "Summary changed from: <br>Convert to modulino<br><br>To: <br>Convert Constant Runner to modulino",
+            "headline" : "Summary changed."
+         },
+         "start_date" : {
+            "hour" : 14,
+            "year" : 2015,
+            "day" : 6,
+            "month" : 10,
+            "minute" : 27
+         },
+         "background" : {
+            "color" : "palevioletred"
+         }
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "text" : "Ready for review here: https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/f5f31973d59dbeb815459b9b4f8c517d0fda4c80<br><br>This uses the version of lbcl_ci.pl that's in SWSM so it looks a bit different. Pull request against MW-1558 is here: https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/pull-requests/322/overview",
+            "headline" : "Comment added by Joshua Brandt"
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "hour" : 14,
+            "year" : 2015,
+            "day" : 2,
+            "minute" : 40,
+            "month" : 11
+         }
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "text" : "Had comments on first commit.  Putting back in progress",
+            "headline" : "Comment added by George Baugh"
+         },
+         "start_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "day" : 2,
+            "month" : 11,
+            "minute" : 56
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "day" : 9,
+            "minute" : 55,
+            "month" : 11,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "headline" : "Comment added by Joshua Brandt",
+            "text" : "Ready for review once again: https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/04f7e635dedc78b4fd40fad77a8219bff69bf369"
+         }
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "hour" : 11,
+            "year" : 2015,
+            "day" : 10,
+            "minute" : 59,
+            "month" : 11
+         },
+         "text" : {
+            "text" : "We went through a couple rounds of improvements on this, and it's ready (as far as review goes) to go as soon as SWSM gets merged.",
+            "headline" : "Comment added by David Nielson"
+         },
+         "group" : "misc"
+      }
+   ]
+}

@@ -1,0 +1,199 @@
+var timeline_json = {
+   "parent" : "MW-1558",
+   "issue_key" : "MW-1646",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1646: Documentation for how to use cpprove"
+      }
+   },
+   "events" : [
+      {
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to George Baugh"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "minute" : 3,
+            "month" : 11,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "day" : 10,
+            "month" : 11,
+            "minute" : 4
+         }
+      },
+      {
+         "group" : "assignee",
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 13,
+            "minute" : 25,
+            "month" : 11,
+            "day" : 10
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "day" : 10,
+            "minute" : 4,
+            "month" : 11
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         }
+      },
+      {
+         "end_date" : {
+            "hour" : 16,
+            "year" : 2015,
+            "day" : 10,
+            "minute" : 38,
+            "month" : 11
+         },
+         "group" : "assignee",
+         "start_date" : {
+            "minute" : 25,
+            "month" : 11,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 13
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Joshua Brandt"
+         }
+      },
+      {
+         "end_date" : {
+            "day" : 11,
+            "minute" : 2,
+            "month" : 11,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from Joshua Brandt to unassigned"
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 38,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 16
+         },
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "group" : "assignee",
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Paul Trost"
+         },
+         "start_date" : {
+            "minute" : 2,
+            "month" : 11,
+            "day" : 11,
+            "year" : 2015,
+            "hour" : 13
+         },
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Progress"
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 3,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 13
+         },
+         "group" : "status",
+         "end_date" : {
+            "minute" : 3,
+            "month" : 11,
+            "day" : 12,
+            "year" : 2015,
+            "hour" : 13
+         }
+      },
+      {
+         "background" : {
+            "color" : "indigo"
+         },
+         "start_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "day" : 12,
+            "minute" : 3,
+            "month" : 11
+         },
+         "text" : {
+            "text" : "Status changed from In Test to Done",
+            "headline" : "Status changed."
+         },
+         "group" : "status"
+      },
+      {
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "https://cpanel.wiki/display/~george.b/Cpprove+Cookbook<br>https://cpanel.wiki/display/~george.b/TestD+Cookbook<br>https://cpanel.wiki/display/QA/Set+Up+a+Sandbox+on+OpenStack<br>https://cpanel.wiki/display/QA/QAPortal2+User+Guide<br>https://cpanel.wiki/display/QA/How+to+Run+the+SBCL<br>All updated to reflect current reality."
+         },
+         "start_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "day" : 10,
+            "minute" : 4,
+            "month" : 11
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc"
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "text" : "Made some very minor changes to punctuation and spacing. Looks good though.",
+            "headline" : "Comment added by Joshua Brandt"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 16,
+            "minute" : 38,
+            "month" : 11,
+            "day" : 10
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ]
+}

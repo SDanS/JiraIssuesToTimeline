@@ -1,0 +1,529 @@
+var timeline_json = {
+   "events" : [
+      {
+         "end_date" : {
+            "day" : "6",
+            "minute" : "47",
+            "year" : "2015",
+            "hour" : "9",
+            "month" : 11
+         },
+         "start_date" : {
+            "hour" : "0",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "6",
+            "minute" : "0"
+         },
+         "group" : "assignee",
+         "end_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "text" : "Assignee changed from unassigned to David Nielson",
+            "headline" : "Assignee changed."
+         },
+         "start_datetime" : null
+      },
+      {
+         "group" : "assignee",
+         "end_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13",
+            "minute" : "21",
+            "day" : "10"
+         },
+         "start_date" : {
+            "month" : 11,
+            "hour" : "9",
+            "year" : "2015",
+            "minute" : "47",
+            "day" : "6"
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Assignee changed from David Nielson to unassigned",
+            "headline" : "Assignee changed."
+         }
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Assignee changed from unassigned to Joshua Brandt",
+            "headline" : "Assignee changed."
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "end_datetime" : null,
+         "group" : "assignee",
+         "end_date" : {
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "25"
+         },
+         "start_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13",
+            "minute" : "21",
+            "day" : "10"
+         }
+      },
+      {
+         "end_datetime" : null,
+         "start_date" : {
+            "minute" : "25",
+            "day" : "10",
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13"
+         },
+         "end_date" : {
+            "minute" : "32",
+            "day" : "10",
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13"
+         },
+         "group" : "assignee",
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from Joshua Brandt to unassigned"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "text" : "Assignee changed from unassigned to David Nielson",
+            "headline" : "Assignee changed."
+         },
+         "start_datetime" : null,
+         "end_date" : {
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "39"
+         },
+         "start_date" : {
+            "day" : "10",
+            "minute" : "32",
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11
+         },
+         "group" : "assignee",
+         "end_datetime" : null
+      },
+      {
+         "group" : "assignee",
+         "start_date" : {
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "39"
+         },
+         "end_date" : {
+            "minute" : "52",
+            "day" : "10",
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015"
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Assignee changed from David Nielson to George Baugh",
+            "headline" : "Assignee changed."
+         }
+      },
+      {
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Progress"
+         },
+         "group" : "status",
+         "end_date" : {
+            "minute" : "47",
+            "day" : "6",
+            "month" : 11,
+            "hour" : "9",
+            "year" : "2015"
+         },
+         "start_date" : {
+            "hour" : "0",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "6",
+            "minute" : "0"
+         },
+         "end_datetime" : null
+      },
+      {
+         "start_date" : {
+            "month" : 11,
+            "hour" : "9",
+            "year" : "2015",
+            "minute" : "47",
+            "day" : "6"
+         },
+         "end_date" : {
+            "month" : 11,
+            "hour" : "11",
+            "year" : "2015",
+            "minute" : "21",
+            "day" : "9"
+         },
+         "group" : "status",
+         "end_datetime" : null,
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Progress to In Review"
+         },
+         "start_datetime" : null
+      },
+      {
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Progress"
+         },
+         "start_datetime" : null,
+         "end_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "12",
+            "minute" : "51",
+            "day" : "10"
+         },
+         "start_date" : {
+            "hour" : "11",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "9",
+            "minute" : "21"
+         },
+         "group" : "status",
+         "end_datetime" : null
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Progress to In Review"
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "end_datetime" : null,
+         "group" : "status",
+         "end_date" : {
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "10",
+            "minute" : "39"
+         },
+         "start_date" : {
+            "month" : 11,
+            "hour" : "12",
+            "year" : "2015",
+            "minute" : "51",
+            "day" : "10"
+         }
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Status changed from In Review to In Progress",
+            "headline" : "Status changed."
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "end_datetime" : null,
+         "group" : "status",
+         "start_date" : {
+            "day" : "10",
+            "minute" : "39",
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11
+         },
+         "end_date" : {
+            "day" : "10",
+            "minute" : "52",
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11
+         }
+      },
+      {
+         "background" : {
+            "color" : "darkblue"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Status changed from In Progress to In Test",
+            "headline" : "Status changed."
+         },
+         "group" : "status",
+         "end_date" : {
+            "minute" : "20",
+            "day" : "13",
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015"
+         },
+         "start_date" : {
+            "minute" : "52",
+            "day" : "10",
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015"
+         },
+         "end_datetime" : null
+      },
+      {
+         "start_date" : {
+            "minute" : "20",
+            "day" : "13",
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015"
+         },
+         "end_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13",
+            "minute" : "10",
+            "day" : "18"
+         },
+         "group" : "status",
+         "end_datetime" : null,
+         "background" : {
+            "color" : "slateblue"
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Test to Merge Pending"
+         },
+         "start_datetime" : null
+      },
+      {
+         "group" : "scope",
+         "start_date" : {
+            "minute" : 58,
+            "day" : 13,
+            "month" : 10,
+            "year" : 2015,
+            "hour" : 13
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Story Points changed from: <br>undef<br><br>To: <br>13",
+            "headline" : "Story Points changed."
+         },
+         "background" : {
+            "color" : "palevioletred"
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "month" : 10,
+            "hour" : 13,
+            "year" : 2015,
+            "minute" : 53,
+            "day" : 28
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Issuetype changed.",
+            "text" : "Issuetype changed from: <br>Story<br><br>To: <br>Sub-task"
+         }
+      },
+      {
+         "start_date" : {
+            "minute" : 46,
+            "day" : 28,
+            "month" : 10,
+            "hour" : 15,
+            "year" : 2015
+         },
+         "group" : "misc",
+         "text" : {
+            "text" : "See https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/369f7648eb7878cf622925dc5e583302141ae0e1",
+            "headline" : "Comment added by George Baugh"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "day" : 28,
+            "minute" : 47,
+            "year" : 2015,
+            "hour" : 15,
+            "month" : 10
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "whoops, still needs unit tests"
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Given what testd does, and how it interacts with the rest of our modules, it really can't be unit tested at this time. Everything that it calls needs to be a modulino first. If we require unit tests for every modulino conversion, we're going to create nasty, unresolvable circular dependencies. So I'm putting this into review even though it doesn't yet have unit tests.",
+            "headline" : "Comment added by David Nielson"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "hour" : 12,
+            "year" : 2015,
+            "month" : 11,
+            "day" : 2,
+            "minute" : 23
+         }
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Then let's take it as-is and review/test it.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "day" : 6,
+            "minute" : 47,
+            "year" : 2015,
+            "hour" : 9,
+            "month" : 11
+         }
+      },
+      {
+         "text" : {
+            "text" : "Special Snowflake PR for U:<br>https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/pull-requests/331/overview",
+            "headline" : "Comment added by George Baugh"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "minute" : 50,
+            "day" : 10,
+            "month" : 11,
+            "hour" : 12,
+            "year" : 2015
+         },
+         "group" : "misc"
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "t/qa/t/OpenStack-reaper.t fails on my sandbox. This is due to something wrong with ~/.openstackrc on my sandbox. Slurping that file is not something we can count on in a smoker environment, so $os_opts on line 75 of the test should be specified literally, rather than gathered from TS::Config::parseConfig.<br><br>t/qa/t/App-Prove-Cpanel.t connects to localhost via SSH. This will never work on smokers. They also fail once an SSH connection has been established; failure below. How necessary are those tests, and if they're a MUST have, can we do them later?<br><br>{code}not ok 3 - Can process args when running innocuous test, with no config files<br>#   Failed test 'Can process args when running innocuous test, with no config files'<br>#   at t/qa/t/App-Prove-Cpanel.t line 44.<br>#          got: 'Could not connect to host specified: [STATE] \"/root/.ssh\" could not be read at /usr/local/cpanel/t/qa/lib/Utils/SSH.pm line 181.<br># \tUtils::SSH::_check_perms(\"/root/.ssh\", 700, 1) called at /usr/local/cpanel/t/qa/lib/Utils/SSH.pm line 158<br># ( . . . etc . . . )<br>{code}<br><br>and later<br><br>{code}<br>not ok 4 - Only one combination group set when not in --all-platforms mode<br><br>#   Failed test 'Only one combination group set when not in --all-platforms mode'<br>#   at t/qa/t/App-Prove-Cpanel.t line 45.<br>#          got: '0'<br>#     expected: '1'<br>Can't use an undefined value as an ARRAY reference at t/qa/t/App-Prove-Cpanel.t line 47.<br>{code}<br><br>t/qa/t/OpenStack-reaper.t fails; I'm assuming it's also because the configuration file isn't correct.<br><br>The code itself is (thumbsup). Once the unit tests are either skipped, or set up to work in a smoker environment, this will be ready to go.",
+            "headline" : "Comment added by David Nielson"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "month" : 11,
+            "day" : 10,
+            "minute" : 31
+         }
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "So in other words, you made the mistake of not doing cplint --branched_from HEAD^.\n\nThis is known, I have to fix the App::Prove::Cpanel and so forth unit tests.\nBut that commit is in another castle, has nothing to do with this."
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "minute" : 51,
+            "day" : 10,
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 13
+         }
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "text" : "SBCL ran with no issues in TestD.",
+            "headline" : "Comment added by Joshua Brandt"
+         },
+         "start_datetime" : null,
+         "start_date" : {
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 13,
+            "minute" : 19,
+            "day" : 13
+         },
+         "group" : "misc"
+      }
+   ],
+   "title" : {
+      "text" : {
+         "headline" : "MW-1653: TestD in Modulino"
+      }
+   },
+   "parent" : "MW-1558",
+   "issue_key" : "MW-1653"
+}

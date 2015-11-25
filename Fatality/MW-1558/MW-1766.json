@@ -1,0 +1,10 @@
+var timeline_json = {
+   "events" : [],
+   "title" : {
+      "text" : {
+         "headline" : "MW-1766: If VM to rebuild is missing FIP, add it"
+      }
+   },
+   "parent" : "MW-1558",
+   "issue_key" : "MW-1766"
+}

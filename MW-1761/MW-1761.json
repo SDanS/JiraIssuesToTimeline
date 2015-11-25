@@ -1,0 +1,167 @@
+var timeline_json = {
+   "title" : {
+      "text" : {
+         "headline" : "MW-1761: Make sure no bad args have been passed up front"
+      }
+   },
+   "events" : [
+      {
+         "group" : "assignee",
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 12,
+            "minute" : 20,
+            "hour" : 12,
+            "year" : 2015,
+            "month" : 11
+         },
+         "end_date" : {
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 13,
+            "minute" : 4,
+            "day" : 12
+         }
+      },
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "end_date" : {
+            "day" : 12,
+            "minute" : 13,
+            "hour" : 13,
+            "month" : 11,
+            "year" : 2015
+         },
+         "start_date" : {
+            "day" : 12,
+            "hour" : 13,
+            "minute" : 4,
+            "year" : 2015,
+            "month" : 11
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Paul Trost"
+         },
+         "group" : "assignee"
+      },
+      {
+         "group" : "assignee",
+         "text" : {
+            "text" : "Assignee changed from Paul Trost to unassigned",
+            "headline" : "Assignee changed."
+         },
+         "start_date" : {
+            "day" : 12,
+            "minute" : 13,
+            "hour" : 13,
+            "year" : 2015,
+            "month" : 11
+         },
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Progress"
+         },
+         "group" : "status",
+         "end_date" : {
+            "year" : 2015,
+            "month" : 11,
+            "hour" : 13,
+            "minute" : 20,
+            "day" : 13
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_date" : {
+            "month" : 11,
+            "year" : 2015,
+            "minute" : 21,
+            "hour" : 9,
+            "day" : 12
+         }
+      },
+      {
+         "group" : "status",
+         "text" : {
+            "text" : "Status changed from In Test to Merge Pending",
+            "headline" : "Status changed."
+         },
+         "background" : {
+            "color" : "slateblue"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "month" : 11,
+            "minute" : 20,
+            "hour" : 13,
+            "day" : 13
+         }
+      },
+      {
+         "text" : {
+            "text" : "https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/18cf434fc9d3bd6c80c9d58a3a9c85a01471b5cf",
+            "headline" : "Comment added by George Baugh"
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "minute" : 20,
+            "hour" : 12,
+            "day" : 12,
+            "month" : 11,
+            "year" : 2015
+         }
+      },
+      {
+         "text" : {
+            "text" : "Testing steps:  passing --bogus flag to cpprove should throw exception.<br><br>All switches for cpprove & prove, files and glob arguments should be honored and no exception thrown.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "month" : 11,
+            "year" : 2015,
+            "day" : 12,
+            "minute" : 22,
+            "hour" : 12
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "text" : {
+            "text" : "I saw no issues. false flags like --taco gave error. cpprove still took a glob of files.",
+            "headline" : "Comment added by Paul Trost"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "hour" : 13,
+            "minute" : 14,
+            "day" : 12,
+            "month" : 11,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ],
+   "issue_key" : "MW-1761"
+}

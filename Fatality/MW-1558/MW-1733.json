@@ -1,0 +1,179 @@
+var timeline_json = {
+   "title" : {
+      "text" : {
+         "headline" : "MW-1733: Update lbcl_ci.pl to no longer use runsuite.pl"
+      }
+   },
+   "parent" : "MW-1558",
+   "issue_key" : "MW-1733",
+   "events" : [
+      {
+         "end_datetime" : null,
+         "group" : "assignee",
+         "end_date" : {
+            "day" : "9",
+            "minute" : "54",
+            "hour" : "12",
+            "year" : "2015",
+            "month" : 11
+         },
+         "start_date" : {
+            "hour" : "0",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "6",
+            "minute" : "0"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         },
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "day" : "9",
+            "minute" : "22",
+            "year" : "2015",
+            "hour" : "11",
+            "month" : 11
+         },
+         "start_date" : {
+            "hour" : "0",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "6",
+            "minute" : "0"
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Status changed from To Do to In Review",
+            "headline" : "Status changed."
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "11",
+            "minute" : "57",
+            "day" : "10"
+         },
+         "start_date" : {
+            "day" : "9",
+            "minute" : "22",
+            "year" : "2015",
+            "hour" : "11",
+            "month" : 11
+         },
+         "end_datetime" : null,
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Progress"
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "minute" : 33,
+            "day" : 28,
+            "month" : 10,
+            "year" : 2015,
+            "hour" : 16
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "at this point all that's needed is unit tests.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Anyone should be able to unit test this easily; look at t/OpenStack-Reaper.t for an example of mocking OpenStack requests.<br><br>Be sure to change the name of your MockModule, and to use said generated mockModule when not in GENERATE_MOCKS=1.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "group" : "misc",
+         "start_date" : {
+            "month" : 10,
+            "hour" : 16,
+            "year" : 2015,
+            "minute" : 45,
+            "day" : 28
+         }
+      },
+      {
+         "start_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "month" : 11,
+            "day" : 5,
+            "minute" : 19
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "text" : "We have a story for unit tests on the backlog for all the modulinos. This particular binary also has a unit test subtask on this Sprint. Please review. Discussed with George.",
+            "headline" : "Comment added by Dan Stewart"
+         },
+         "start_datetime" : null
+      },
+      {
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 15,
+            "month" : 11,
+            "day" : 5,
+            "minute" : 24
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "text" : "The linked issue may be tightly coupled to this.",
+            "headline" : "Comment added by Dan Stewart"
+         },
+         "start_datetime" : null
+      },
+      {
+         "start_date" : {
+            "day" : 10,
+            "minute" : 57,
+            "hour" : 11,
+            "year" : 2015,
+            "month" : 11
+         },
+         "group" : "misc",
+         "text" : {
+            "headline" : "Comment added by David Nielson",
+            "text" : "This is getting handled via MW-1453."
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ]
+}

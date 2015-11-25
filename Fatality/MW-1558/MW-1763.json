@@ -1,0 +1,247 @@
+var timeline_json = {
+   "issue_key" : "MW-1763",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1763: testd jobs configurable by interface"
+      }
+   },
+   "parent" : "MW-1558",
+   "events" : [
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to George Baugh"
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "month" : 11,
+            "hour" : "15",
+            "year" : "2015",
+            "minute" : "8",
+            "day" : "18"
+         },
+         "start_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13",
+            "minute" : "11",
+            "day" : "18"
+         },
+         "end_datetime" : null
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "end_datetime" : null,
+         "group" : "assignee",
+         "end_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "15",
+            "minute" : "9",
+            "day" : "18"
+         },
+         "start_date" : {
+            "month" : 11,
+            "hour" : "15",
+            "year" : "2015",
+            "minute" : "8",
+            "day" : "18"
+         }
+      },
+      {
+         "end_datetime" : null,
+         "end_date" : {
+            "day" : "18",
+            "minute" : "14",
+            "year" : "2015",
+            "hour" : "15",
+            "month" : 11
+         },
+         "start_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "15",
+            "minute" : "9",
+            "day" : "18"
+         },
+         "group" : "assignee",
+         "text" : {
+            "text" : "Assignee changed from unassigned to Joshua Brandt",
+            "headline" : "Assignee changed."
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Progress"
+         },
+         "group" : "status",
+         "end_date" : {
+            "day" : "18",
+            "minute" : "8",
+            "hour" : "15",
+            "year" : "2015",
+            "month" : 11
+         },
+         "start_date" : {
+            "minute" : "4",
+            "day" : "16",
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "10"
+         },
+         "end_datetime" : null
+      },
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Progress to In Review"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "end_datetime" : null,
+         "end_date" : {
+            "minute" : "14",
+            "day" : "18",
+            "month" : 11,
+            "hour" : "15",
+            "year" : "2015"
+         },
+         "start_date" : {
+            "day" : "18",
+            "minute" : "8",
+            "year" : "2015",
+            "hour" : "15",
+            "month" : 11
+         },
+         "group" : "status"
+      },
+      {
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Test"
+         },
+         "background" : {
+            "color" : "darkblue"
+         },
+         "end_datetime" : null,
+         "group" : "status",
+         "end_date" : {
+            "year" : "2015",
+            "hour" : "16",
+            "month" : 11,
+            "day" : "18",
+            "minute" : "28"
+         },
+         "start_date" : {
+            "minute" : "14",
+            "day" : "18",
+            "month" : 11,
+            "hour" : "15",
+            "year" : "2015"
+         }
+      },
+      {
+         "background" : {
+            "color" : "slateblue"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Status changed from In Test to Merge Pending",
+            "headline" : "Status changed."
+         },
+         "group" : "status",
+         "start_date" : {
+            "day" : "18",
+            "minute" : "28",
+            "hour" : "16",
+            "year" : "2015",
+            "month" : 11
+         },
+         "end_date" : {
+            "hour" : "9",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "19",
+            "minute" : "33"
+         },
+         "end_datetime" : null
+      },
+      {
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/compare/commits?sourceBranch=refs/heads/MW-1763"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 15,
+            "minute" : 7,
+            "day" : 18
+         },
+         "group" : "misc"
+      },
+      {
+         "start_date" : {
+            "minute" : 14,
+            "day" : 18,
+            "month" : 11,
+            "year" : 2015,
+            "hour" : 15
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "headline" : "Comment added by Joshua Brandt",
+            "text" : "Review looks good"
+         },
+         "start_datetime" : null
+      },
+      {
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 16,
+            "month" : 11,
+            "day" : 18,
+            "minute" : 28
+         },
+         "group" : "misc",
+         "text" : {
+            "text" : "This also looks good, can change the number of jobs and it's reflected in testd.",
+            "headline" : "Comment added by Joshua Brandt"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ]
+}

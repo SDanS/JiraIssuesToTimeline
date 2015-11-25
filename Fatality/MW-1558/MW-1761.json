@@ -1,0 +1,221 @@
+var timeline_json = {
+   "parent" : "MW-1558",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1761: Make sure no bad args have been passed up front"
+      }
+   },
+   "issue_key" : "MW-1761",
+   "events" : [
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "text" : "Assignee changed from George Baugh to unassigned",
+            "headline" : "Assignee changed."
+         },
+         "start_datetime" : null,
+         "end_date" : {
+            "month" : 11,
+            "hour" : "13",
+            "year" : "2015",
+            "minute" : "4",
+            "day" : "12"
+         },
+         "start_date" : {
+            "year" : "2015",
+            "hour" : "12",
+            "month" : 11,
+            "day" : "12",
+            "minute" : "20"
+         },
+         "group" : "assignee",
+         "end_datetime" : null
+      },
+      {
+         "text" : {
+            "text" : "Assignee changed from unassigned to Paul Trost",
+            "headline" : "Assignee changed."
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "seagreen"
+         },
+         "end_datetime" : null,
+         "end_date" : {
+            "minute" : "13",
+            "day" : "12",
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13"
+         },
+         "start_date" : {
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11,
+            "day" : "12",
+            "minute" : "4"
+         },
+         "group" : "assignee"
+      },
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Progress"
+         },
+         "start_datetime" : null,
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "end_datetime" : null,
+         "start_date" : {
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "9",
+            "minute" : "21",
+            "day" : "12"
+         },
+         "end_date" : {
+            "day" : "12",
+            "minute" : "20",
+            "year" : "2015",
+            "hour" : "12",
+            "month" : 11
+         },
+         "group" : "status"
+      },
+      {
+         "end_datetime" : null,
+         "group" : "status",
+         "start_date" : {
+            "minute" : "20",
+            "day" : "12",
+            "month" : 11,
+            "hour" : "12",
+            "year" : "2015"
+         },
+         "end_date" : {
+            "day" : "12",
+            "minute" : "13",
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Status changed from In Progress to In Review",
+            "headline" : "Status changed."
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         }
+      },
+      {
+         "background" : {
+            "color" : "darkblue"
+         },
+         "start_datetime" : null,
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Test"
+         },
+         "group" : "status",
+         "start_date" : {
+            "minute" : "13",
+            "day" : "12",
+            "month" : 11,
+            "year" : "2015",
+            "hour" : "13"
+         },
+         "end_date" : {
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11,
+            "day" : "13",
+            "minute" : "20"
+         },
+         "end_datetime" : null
+      },
+      {
+         "start_date" : {
+            "hour" : "13",
+            "year" : "2015",
+            "month" : 11,
+            "day" : "13",
+            "minute" : "20"
+         },
+         "end_date" : {
+            "day" : "18",
+            "minute" : "10",
+            "year" : "2015",
+            "hour" : "13",
+            "month" : 11
+         },
+         "group" : "status",
+         "end_datetime" : null,
+         "background" : {
+            "color" : "slateblue"
+         },
+         "text" : {
+            "text" : "Status changed from In Test to Merge Pending",
+            "headline" : "Status changed."
+         },
+         "start_datetime" : null
+      },
+      {
+         "start_date" : {
+            "day" : 12,
+            "minute" : 20,
+            "year" : 2015,
+            "hour" : 12,
+            "month" : 11
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "text" : "https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/18cf434fc9d3bd6c80c9d58a3a9c85a01471b5cf",
+            "headline" : "Comment added by George Baugh"
+         },
+         "start_datetime" : null
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 12,
+            "month" : 11,
+            "day" : 12,
+            "minute" : 22
+         },
+         "start_datetime" : null,
+         "text" : {
+            "text" : "Testing steps:  passing --bogus flag to cpprove should throw exception.<br><br>All switches for cpprove & prove, files and glob arguments should be honored and no exception thrown.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 13,
+            "month" : 11,
+            "day" : 12,
+            "minute" : 14
+         },
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "text" : "I saw no issues. false flags like --taco gave error. cpprove still took a glob of files.",
+            "headline" : "Comment added by Paul Trost"
+         },
+         "start_datetime" : null
+      }
+   ]
+}

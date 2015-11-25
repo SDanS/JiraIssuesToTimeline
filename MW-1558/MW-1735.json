@@ -1,0 +1,339 @@
+var timeline_json = {
+   "issue_key" : "MW-1735",
+   "parent" : "MW-1558",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1735: Update bulk_delete_project to use TS::Config, OpenStack.pm"
+      }
+   },
+   "events" : [
+      {
+         "end_date" : {
+            "month" : 11,
+            "minute" : 40,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 13
+         },
+         "group" : "assignee",
+         "start_date" : {
+            "day" : 28,
+            "month" : 10,
+            "minute" : 45,
+            "hour" : 16,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         }
+      },
+      {
+         "text" : {
+            "text" : "Assignee changed from unassigned to David Nielson",
+            "headline" : "Assignee changed."
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 40,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "day" : 10,
+            "month" : 11,
+            "minute" : 40
+         }
+      },
+      {
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 40,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from David Nielson to unassigned"
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 40,
+            "hour" : 13,
+            "year" : 2015
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to David Nielson"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 40,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "end_date" : {
+            "hour" : 13,
+            "year" : 2015,
+            "day" : 10,
+            "month" : 11,
+            "minute" : 40
+         }
+      },
+      {
+         "group" : "assignee",
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 10,
+            "minute" : 40,
+            "month" : 11,
+            "hour" : 13,
+            "year" : 2015
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from David Nielson to unassigned"
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "day" : 9,
+            "month" : 11,
+            "minute" : 22,
+            "hour" : 11,
+            "year" : 2015
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Review"
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "start_date" : {
+            "day" : 5,
+            "minute" : 17,
+            "month" : 11,
+            "hour" : 15,
+            "year" : 2015
+         }
+      },
+      {
+         "text" : {
+            "text" : "Status changed from In Review to In Progress",
+            "headline" : "Status changed."
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "month" : 11,
+            "minute" : 22,
+            "day" : 9
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 12,
+            "month" : 11,
+            "minute" : 54,
+            "day" : 10
+         },
+         "group" : "status"
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 13,
+            "minute" : 40,
+            "month" : 11,
+            "day" : 10
+         },
+         "text" : {
+            "text" : "Status changed from In Progress to In Review",
+            "headline" : "Status changed."
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "start_date" : {
+            "day" : 10,
+            "month" : 11,
+            "minute" : 54,
+            "hour" : 12,
+            "year" : 2015
+         }
+      },
+      {
+         "text" : {
+            "text" : "Status changed from In Review to In Review",
+            "headline" : "Status changed."
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 40,
+            "day" : 10,
+            "year" : 2015,
+            "hour" : 13
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         },
+         "end_date" : {
+            "month" : 11,
+            "minute" : 41,
+            "day" : 13,
+            "year" : 2015,
+            "hour" : 14
+         },
+         "group" : "status"
+      },
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Test to Merge Pending"
+         },
+         "background" : {
+            "color" : "slateblue"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 14,
+            "minute" : 41,
+            "month" : 11,
+            "day" : 13
+         },
+         "group" : "status"
+      },
+      {
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "At this point unit tests is what's left."
+         },
+         "start_date" : {
+            "month" : 10,
+            "minute" : 35,
+            "day" : 28,
+            "year" : 2015,
+            "hour" : 16
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc"
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "hour" : 16,
+            "year" : 2015,
+            "day" : 28,
+            "minute" : 45,
+            "month" : 10
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "Anyone should be able to unit test this easily; look at t/OpenStack-Reaper.t for an example of mocking OpenStack requests.<br><br>Be sure to change the name of your MockModule, and to use said generated mockModule when not in GENERATE_MOCKS=1."
+         }
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "headline" : "Comment added by Dan Stewart",
+            "text" : "We have a story for unit tests on the backlog for all the modulinos. This particular binary also has a unit test subtask on this Sprint. Please review. Discussed with George."
+         },
+         "start_date" : {
+            "hour" : 15,
+            "year" : 2015,
+            "day" : 5,
+            "month" : 11,
+            "minute" : 20
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "text" : "Special Snowflake PR for U:<br>https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/pull-requests/332/overview",
+            "headline" : "Comment added by George Baugh"
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "day" : 10,
+            "minute" : 54,
+            "month" : 11,
+            "hour" : 12,
+            "year" : 2015
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Comment added by David Nielson",
+            "text" : "Excellent"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 13,
+            "minute" : 41,
+            "month" : 11,
+            "day" : 10
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc"
+      },
+      {
+         "text" : {
+            "headline" : "Comment added by Joshua Brandt",
+            "text" : "Testing looks good."
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 41,
+            "day" : 13,
+            "year" : 2015,
+            "hour" : 14
+         },
+         "group" : "misc"
+      }
+   ]
+}

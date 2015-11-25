@@ -1,0 +1,233 @@
+var timeline_json = {
+   "events" : [
+      {
+         "start_date" : {
+            "day" : 13,
+            "minute" : 24,
+            "month" : 11,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         },
+         "end_date" : {
+            "hour" : 16,
+            "year" : 2015,
+            "day" : 13,
+            "minute" : 9,
+            "month" : 11
+         },
+         "group" : "assignee"
+      },
+      {
+         "end_date" : {
+            "day" : 13,
+            "minute" : 9,
+            "month" : 11,
+            "hour" : 16,
+            "year" : 2015
+         },
+         "group" : "assignee",
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 16,
+            "minute" : 9,
+            "month" : 11,
+            "day" : 13
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Joshua Brandt"
+         }
+      },
+      {
+         "end_date" : {
+            "minute" : 1,
+            "month" : 11,
+            "day" : 16,
+            "year" : 2015,
+            "hour" : 14
+         },
+         "group" : "assignee",
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from Joshua Brandt to unassigned"
+         },
+         "start_date" : {
+            "hour" : 16,
+            "year" : 2015,
+            "day" : 13,
+            "minute" : 9,
+            "month" : 11
+         },
+         "background" : {
+            "color" : "seagreen"
+         }
+      },
+      {
+         "group" : "assignee",
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "day" : 16,
+            "month" : 11,
+            "minute" : 1,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Joshua Brandt"
+         }
+      },
+      {
+         "group" : "status",
+         "end_date" : {
+            "day" : 13,
+            "minute" : 21,
+            "month" : 11,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "start_date" : {
+            "hour" : 14,
+            "year" : 2015,
+            "day" : 13,
+            "month" : 11,
+            "minute" : 21
+         },
+         "text" : {
+            "text" : "Status changed from To Do to In Progress",
+            "headline" : "Status changed."
+         }
+      },
+      {
+         "start_date" : {
+            "hour" : 14,
+            "year" : 2015,
+            "day" : 13,
+            "minute" : 21,
+            "month" : 11
+         },
+         "background" : {
+            "color" : "darkcyan"
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Progress to In Progress"
+         },
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 14,
+            "month" : 11,
+            "minute" : 6,
+            "day" : 16
+         },
+         "group" : "status"
+      },
+      {
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Test to Merge Pending"
+         },
+         "background" : {
+            "color" : "slateblue"
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 6,
+            "day" : 16,
+            "year" : 2015,
+            "hour" : 14
+         },
+         "group" : "status"
+      },
+      {
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "day" : 13,
+            "minute" : 24,
+            "month" : 11,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "text" : {
+            "text" : "https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/c699ba82d4daccdc4fcbd57ba190530569804385<br><br>Testing explanation:<br><br>Running tests in --search_dir should obey your --jobs flag, to the extent that you have at least as many tests to run as jobs provided.<br><br>Running tests outside of search_dir mode should not cause any trouble in the case you request more jobs than tests provided.",
+            "headline" : "Comment added by George Baugh"
+         }
+      },
+      {
+         "group" : "misc",
+         "start_date" : {
+            "minute" : 31,
+            "month" : 11,
+            "day" : 13,
+            "year" : 2015,
+            "hour" : 14
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "text" : {
+            "text" : "https://enterprise.cpanel.net/projects/CPANEL/repos/mortal-wombat-cpanel-whm/commits/71b8eb733072767ce221b689bc5ef526342c4117<br><br>make sure to have the above commit when testing.",
+            "headline" : "Comment added by George Baugh"
+         }
+      },
+      {
+         "text" : {
+            "headline" : "Comment added by Joshua Brandt",
+            "text" : "Changes look good."
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 9,
+            "day" : 13,
+            "year" : 2015,
+            "hour" : 16
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "group" : "misc"
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "day" : 16,
+            "minute" : 6,
+            "month" : 11,
+            "hour" : 14,
+            "year" : 2015
+         },
+         "text" : {
+            "text" : "Gives a good warning when I specify way too many jobs and works when I specify a reasonable number. Looks good to me.",
+            "headline" : "Comment added by Joshua Brandt"
+         },
+         "group" : "misc"
+      }
+   ],
+   "parent" : "MW-1558",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1762: cpprove Jobs option: appears to be ignored in some cases"
+      }
+   },
+   "issue_key" : "MW-1762"
+}

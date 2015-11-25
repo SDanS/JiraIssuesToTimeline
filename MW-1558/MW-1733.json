@@ -1,0 +1,202 @@
+var timeline_json = {
+   "events" : [
+      {
+         "group" : "assignee",
+         "end_date" : {
+            "month" : 11,
+            "minute" : 54,
+            "day" : 9,
+            "year" : 2015,
+            "hour" : 12
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from George Baugh to unassigned"
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "start_date" : {
+            "minute" : 45,
+            "month" : 10,
+            "day" : 28,
+            "year" : 2015,
+            "hour" : 16
+         }
+      },
+      {
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 12,
+            "minute" : 54,
+            "month" : 11,
+            "day" : 9
+         },
+         "background" : {
+            "color" : "seagreen"
+         },
+         "text" : {
+            "headline" : "Assignee changed.",
+            "text" : "Assignee changed from unassigned to Joshua Brandt"
+         },
+         "group" : "assignee"
+      },
+      {
+         "end_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "minute" : 22,
+            "month" : 11,
+            "day" : 9
+         },
+         "group" : "status",
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from To Do to In Review"
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 17,
+            "day" : 5,
+            "year" : 2015,
+            "hour" : 15
+         },
+         "background" : {
+            "color" : "dodgerblue"
+         }
+      },
+      {
+         "end_date" : {
+            "hour" : 11,
+            "year" : 2015,
+            "day" : 10,
+            "minute" : 57,
+            "month" : 11
+         },
+         "group" : "status",
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Review to In Progress"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "minute" : 22,
+            "month" : 11,
+            "day" : 9
+         },
+         "background" : {
+            "color" : "darkcyan"
+         }
+      },
+      {
+         "background" : {
+            "color" : "indigo"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "minute" : 57,
+            "month" : 11,
+            "day" : 10
+         },
+         "text" : {
+            "headline" : "Status changed.",
+            "text" : "Status changed from In Progress to Done"
+         },
+         "group" : "status"
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 16,
+            "minute" : 33,
+            "month" : 10,
+            "day" : 28
+         },
+         "text" : {
+            "text" : "at this point all that's needed is unit tests.",
+            "headline" : "Comment added by George Baugh"
+         },
+         "group" : "misc"
+      },
+      {
+         "group" : "misc",
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 16,
+            "minute" : 45,
+            "month" : 10,
+            "day" : 28
+         },
+         "text" : {
+            "headline" : "Comment added by George Baugh",
+            "text" : "Anyone should be able to unit test this easily; look at t/OpenStack-Reaper.t for an example of mocking OpenStack requests.<br><br>Be sure to change the name of your MockModule, and to use said generated mockModule when not in GENERATE_MOCKS=1."
+         }
+      },
+      {
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 15,
+            "month" : 11,
+            "minute" : 19,
+            "day" : 5
+         },
+         "text" : {
+            "headline" : "Comment added by Dan Stewart",
+            "text" : "We have a story for unit tests on the backlog for all the modulinos. This particular binary also has a unit test subtask on this Sprint. Please review. Discussed with George."
+         },
+         "group" : "misc"
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "text" : "The linked issue may be tightly coupled to this.",
+            "headline" : "Comment added by Dan Stewart"
+         },
+         "background" : {
+            "color" : "plum"
+         },
+         "start_date" : {
+            "month" : 11,
+            "minute" : 24,
+            "day" : 5,
+            "year" : 2015,
+            "hour" : 15
+         }
+      },
+      {
+         "group" : "misc",
+         "text" : {
+            "text" : "This is getting handled via MW-1453.",
+            "headline" : "Comment added by David Nielson"
+         },
+         "start_date" : {
+            "year" : 2015,
+            "hour" : 11,
+            "month" : 11,
+            "minute" : 57,
+            "day" : 10
+         },
+         "background" : {
+            "color" : "plum"
+         }
+      }
+   ],
+   "parent" : "MW-1558",
+   "title" : {
+      "text" : {
+         "headline" : "MW-1733: Update lbcl_ci.pl to no longer use runsuite.pl"
+      }
+   },
+   "issue_key" : "MW-1733"
+}

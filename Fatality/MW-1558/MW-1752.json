@@ -1,0 +1,10 @@
+var timeline_json = {
+   "title" : {
+      "text" : {
+         "headline" : "MW-1752: Add unit tests for lbcl_ci.pl"
+      }
+   },
+   "parent" : "MW-1558",
+   "issue_key" : "MW-1752",
+   "events" : []
+}
