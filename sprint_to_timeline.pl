@@ -18,6 +18,8 @@ my $username;
 my $password;
 my $sprint_name;
 my $project;
+my @issues;
+my $dir_name;
 
 GetOptions(
     "start_date=s{5}" => \@start_date,
@@ -26,6 +28,8 @@ GetOptions(
     "password=s"      => \$password,
     "sprint_name=s"   => \$sprint_name,
     "project=s"       => \$project,
+    "issues=s{1,}"         => \@issues,
+    "dir_name=s"      => \$dir_name,
 );
 
 __PACKAGE__->run() unless caller;
@@ -62,8 +66,10 @@ sub run {
         minute => $sprint->{start_datetime}->minute
     };
     $sprint->{sprint_name} = $sprint_name;
-    $sprint->issues_in_sprint($sprint_name);
-    $sprint->dir_setup();
+    $sprint->{dir_name} = $dir_name;
+    #print @issues;
+    $sprint->issues_in_query($sprint_name, \@issues);
+    $sprint->dir_setup($dir_name);
     $sprint->get_issues(
         $sprint->{start_date}, $sprint->{start_datetime},
         $sprint->{end_date},   $sprint->{end_datetime}

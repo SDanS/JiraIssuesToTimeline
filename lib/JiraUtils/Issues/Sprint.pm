@@ -21,9 +21,11 @@ sub new {
     return $self;
 }
 
-sub issues_in_sprint {
+sub issues_in_query {
     my $self = shift;
-    $self->{sprint_info}->{name} = shift;
+    use Data::Dumper;
+    $self->{sprint_info}->{name}   = shift;
+    $self->{sprint_info}->{issues} = shift;
     my $expand     = shift;
     my $req_expand = '&expand=' . $expand if $expand;
     my $req_fields = '&fields=key';
@@ -34,15 +36,32 @@ sub issues_in_sprint {
         = 'sprint = '
         . "\"$self->{sprint_info}->{name}\""
         . ' AND issuetype != 5';
-    my $uri_query_string = 'jql=' . uri_escape($sprint_query);
+    my $issue_string .= $_ . ',' foreach @{ $self->{sprint_info}->{issues} };
+    foreach ( 0 .. $#{ $self->{sprint_info}->{issues} } ) {
+        $issue_string .= $self->{sprint_info}->{issues}->[$_] . ','
+            unless $_ == $#{ $self->{sprint_info}->{issues} };
+        $issue_string .= $self->{sprint_info}->{issues}->[$_]
+            if $_ == $#{ $self->{sprint_info}->{issues} };
+    }
+    print Dumper $issue_string;
+    my $issue_query      = 'issue in (' . $issue_string . ')';
+    my $uri_query_string = 'jql=' . uri_escape($sprint_query)
+        if $self->{sprint_info}->{name};
+    $uri_query_string = 'jql=' . uri_escape($issue_query)
+        if ( !($self->{sprint_info}->{name}) && ($issue_string));
+
+    print Dumper $uri_query_string;
     $self->{client}->GET(
         'rest/api/2/search?' . $uri_query_string . $req_expand . $req_fields,
         $self->{auth_headers}
     );
     $self->{sprint} = from_json( $self->{client}->responseContent() );
+
     foreach ( @{ $self->{sprint}->{issues} } ) {
         push @{ $self->{sprint_info}->{story_keys} }, $_->{key};
     }
+
+    #print Dumper $self->{sprint_info}->{story_keys};
     return $self;
 }
 
@@ -313,8 +332,11 @@ sub write_overview_obj_json {
 }
 
 sub dir_setup {
-    my $self = shift;
-    $self->{sprint_info}->{sprint_dir} = "./$self->{sprint_info}->{name}";
+    my $self     = shift;
+    my $dir_name = shift;
+    $self->{sprint_info}->{sprint_dir} = "./$self->{sprint_info}->{name}"
+        unless $dir_name;
+    $self->{sprint_info}->{sprint_dir} = $dir_name if $dir_name;
     mkdir "./$self->{sprint_info}->{sprint_dir}";
     chdir $self->{sprint_info}->{sprint_dir};
     foreach ( @{ $self->{sprint_info}->{story_keys} } ) {
@@ -375,15 +397,16 @@ sub ov_nav_menu_html {
 sub ov_index_html {
     my $self = shift;
     my $story_ref;
+    $self->{sprint_name} = $self->{dir_name} if $self->{dir_name};
     (   my $html_tag_open = qq{
         <html>
-        <title> Sprint: $self->{sprint_name}</title>
+        <title> Report: $self->{sprint_name}</title>
         <head>
             <meta charset="UTF-8" />
             <link rel="stylesheet" type="text/css" href="menu.css"/>
         </head>
         <body>
-        <h2>Sprint: $self->{sprint_name}</h2>
+        <h2>Report: $self->{sprint_name}</h2>
     }
     ) =~ s/ {4,8}//mg;
     (   my $html_tag_close = qq{
@@ -411,6 +434,7 @@ sub ov_index_html {
             . $story_ref->{subtask_assignee_delta}
             . ']</span></a></li>' . "\n";
     }
+
     # (   my $body_div = qq{
     #     <div class="body_offset">
     #     <br><br>
