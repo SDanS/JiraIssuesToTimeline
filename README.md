@@ -3,7 +3,8 @@ Jira issues converted to two different timeline formats and outputted to static 
 
 ##To install:
 clone repo
-add JiraIssuesToTimelin/lib to PERL5LIB
+
+add JiraIssuesToTimeline/lib to PERL5LIB
 
 ##To Run:
 
