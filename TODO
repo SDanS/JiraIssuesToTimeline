@@ -1,0 +1,9 @@
+[/]colors on timelinejs bar
+[x]Days of week on timelinejs bar or exclude weekends and holidays if possible.
+[/]Zoom out timelinejs bar by default or to some relative scale setting.
+[/]status change verbiage to show destination status.
+[/]Landing page: status, assignee transitions.
+[*]Landing page: time taken
+[*]Stash integration:In Review approvals, declines, diff size and comments (?) in stash pull requests.
+[*]Landing Page: code Complexity and risk assessment.
+emtpy rows on overview

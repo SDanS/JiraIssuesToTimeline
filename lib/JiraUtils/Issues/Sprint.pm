@@ -17,7 +17,7 @@ use parent qw( JiraUtils::Issues );
 sub new {
     my $class = shift;
     my ( $username, $password ) = @_;
-    my $self = $class->SUPER::new( $username, $password );
+    my $self = $class->SUPER::new();
     return $self;
 }
 
@@ -29,9 +29,6 @@ sub issues_in_query {
     my $expand     = shift;
     my $req_expand = '&expand=' . $expand if $expand;
     my $req_fields = '&fields=key';
-    ### JQL query for issues belonging to a sprint.
-    ### Sprint = "SWSM" AND issuetype != "5"
-    ###  https://jira.cpanel.net/rest/api/2/search?jql=sprint%20%3D%20fatality%20and%20issuetype%20!%3D%205&fields=key
     my $sprint_query
         = 'sprint = '
         . "\"$self->{sprint_info}->{name}\""
@@ -43,14 +40,12 @@ sub issues_in_query {
         $issue_string .= $self->{sprint_info}->{issues}->[$_]
             if $_ == $#{ $self->{sprint_info}->{issues} };
     }
-    print Dumper $issue_string;
     my $issue_query      = 'issue in (' . $issue_string . ')';
     my $uri_query_string = 'jql=' . uri_escape($sprint_query)
         if $self->{sprint_info}->{name};
     $uri_query_string = 'jql=' . uri_escape($issue_query)
-        if ( !($self->{sprint_info}->{name}) && ($issue_string));
+        if ( !( $self->{sprint_info}->{name} ) && ($issue_string) );
 
-    print Dumper $uri_query_string;
     $self->{client}->GET(
         'rest/api/2/search?' . $uri_query_string . $req_expand . $req_fields,
         $self->{auth_headers}
@@ -60,8 +55,6 @@ sub issues_in_query {
     foreach ( @{ $self->{sprint}->{issues} } ) {
         push @{ $self->{sprint_info}->{story_keys} }, $_->{key};
     }
-
-    #print Dumper $self->{sprint_info}->{story_keys};
     return $self;
 }
 
@@ -72,7 +65,9 @@ sub get_issues {
         $self->{issue_objs}->{$_}
             = JiraUtils::Issues::Sprint->new( $self->{username},
             $self->{password} );
-        $self->{issue_objs}->{$_}->{issue_key} = $_;
+        $self->{issue_objs}->{$_}->{issue_key}    = $_;
+        $self->{issue_objs}->{$_}->{client}       = $self->{client};
+        $self->{issue_objs}->{$_}->{auth_headers} = $self->{auth_headers};
         $self->{issue_objs}->{$_}->issue_request( 'get', 'changelog' );
         my $buckets = [
             'summary', 'description', 'priority', 'issuetype',
@@ -122,75 +117,17 @@ sub build_overview_obj {
         $story_ref = $self->{issue_objs}->{$_};
         my $issue_key = $story_ref->{issue_key};
         foreach ( @{ $story_ref->{timeline_href}->{events} } ) {
-            if ( $_->{group} eq 'status' ) {
+            if ( $_->{group} eq 'status' || $_->{group} eq 'assignee' ) {
+                my $event_type = $_->{group};
                 my @row_array;
-                my $start_date;
-                my $end_date;
                 my ($status) = $_->{text}->{text} =~ /.* to (.+)/;
-                if ( exists $_->{start_date} ) {
-                    $start_date
-                        = "Date($_->{start_date}->{year}, "
-                        . ( $_->{start_date}->{month} - 1 )
-                        . ",$_->{start_date}->{day}, $_->{start_date}->{hour}, $_->{start_date}->{minute})";
-                }
-                else {
-                    $start_date
-                        = "Date($terminal_start_date->{year}, "
-                        . ( $terminal_start_date->{month} - 1 )
-                        . ", $terminal_start_date->{day}, $terminal_start_date->{hour}, $terminal_start_date->{minute})";
-                }
-                if ( exists $_->{end_date} ) {
-                    $end_date
-                        = "Date($_->{end_date}->{year}, "
-                        . ( $_->{end_date}->{month} - 1 )
-                        . ", $_->{end_date}->{day}, $_->{end_date}->{hour}, $_->{end_date}->{minute})";
-                }
-                else {
-                    $end_date
-                        = "Date($terminal_end_date->{year}, "
-                        . ( $terminal_end_date->{month} - 1 )
-                        . ", $terminal_end_date->{day}, $terminal_end_date->{hour}, $terminal_end_date->{minute})";
-                }
+                my ( $start_date, $end_date )
+                    = date_termination( $_, $terminal_start_date,
+                    $terminal_end_date );
                 push @row_array,
                     [
-                    $issue_key . ": status",
+                    $issue_key . ': ' . $event_type,
                     $status, $start_date, $end_date
-                    ];
-                push @{ $story_ref->{story_ov_obj} }, @row_array;
-            }
-            elsif ( $_->{group} eq 'assignee' ) {
-                my @row_array;
-                my $start_date;
-                my $end_date;
-                my ($assignee) = $_->{text}->{text} =~ /.* to (.+)/;
-                if ( exists $_->{start_date} ) {
-                    $start_date
-                        = "Date($_->{start_date}->{year}, "
-                        . ( $_->{start_date}->{month} - 1 )
-                        . ", $_->{start_date}->{day}, $_->{start_date}->{hour}, $_->{start_date}->{minute})";
-                }
-                else {
-                    $start_date
-                        = "Date($terminal_start_date->{year}, "
-                        . ( $terminal_start_date->{month} - 1 )
-                        . ", $terminal_start_date->{day}, $terminal_start_date->{hour}, $terminal_start_date->{minute})";
-                }
-                if ( exists $_->{end_date} ) {
-                    $end_date
-                        = "Date($_->{end_date}->{year}, "
-                        . ( $_->{end_date}->{month} - 1 )
-                        . ", $_->{end_date}->{day}, $_->{end_date}->{hour}, $_->{end_date}->{minute})";
-                }
-                else {
-                    $end_date
-                        = "Date($terminal_end_date->{year}, "
-                        . ( $terminal_end_date->{month} - 1 )
-                        . ", $terminal_end_date->{day}, $terminal_end_date->{hour}, $terminal_end_date->{minute})";
-                }
-                push @row_array,
-                    [
-                    $issue_key . ": assignee",
-                    $assignee, $start_date, $end_date
                     ];
                 push @{ $story_ref->{story_ov_obj} }, @row_array;
             }
@@ -204,95 +141,64 @@ sub build_overview_obj {
             foreach ( @{ $_->{events} } ) {
                 my $start_date;
                 my $end_date;
-                if ( $_->{group} eq 'status' ) {
+                if ( $_->{group} eq 'status' || $_->{group} eq 'assignee' ) {
+                    my $event_type = $_->{group};
                     my @row_array;
-                    $story_ref->{subtask_statuses}++;
                     my ($status) = $_->{text}->{text} =~ /.* to (.+)/;
-                    if ( exists $_->{start_date} ) {
-                        $start_date
-                            = "Date($_->{start_date}->{year}, "
-                            . ( $_->{start_date}->{month} - 1 )
-                            . ", $_->{start_date}->{day}, $_->{start_date}->{hour}, $_->{start_date}->{minute})";
-                    }
-                    else {
-                        $start_date
-                            = "Date($terminal_start_date->{year}, "
-                            . ( $terminal_start_date->{month} - 1 )
-                            . ", $terminal_start_date->{day}, $terminal_start_date->{hour}, $terminal_start_date->{minute})";
-                    }
-                    if ( exists $_->{end_date} ) {
-                        $end_date
-                            = "Date($_->{end_date}->{year}, "
-                            . ( $_->{end_date}->{month} - 1 )
-                            . ", $_->{end_date}->{day}, $_->{end_date}->{hour}, $_->{end_date}->{minute})";
-                    }
-                    else {
-                        $end_date
-                            = "Date($terminal_end_date->{year}, "
-                            . ( $terminal_end_date->{month} - 1 )
-                            . ", $terminal_end_date->{day}, $terminal_end_date->{hour}, $terminal_end_date->{minute})";
-
-                    }
+                    my ( $start_date, $end_date )
+                        = date_termination( $_, $terminal_start_date,
+                        $terminal_end_date );
                     push @row_array,
                         [
-                        $issue_key . ": status",
+                        $issue_key . ': ' . $event_type,
                         $status, $start_date, $end_date
                         ];
-                    push @{ $story_ref->{subtask_ov_obj} }, @row_array;
-                }
-                elsif ( $_->{group} eq 'assignee' ) {
-                    my @row_array;
-                    $story_ref->{subtask_assignee_delta}++;
-                    my ($assignee) = $_->{text}->{text} =~ /.* to (.+)/;
-                    if ( exists $_->{start_date} ) {
-                        $start_date
-                            = "Date($_->{start_date}->{year}, "
-                            . ( $_->{start_date}->{month} - 1 )
-                            . ", $_->{start_date}->{day}, $_->{start_date}->{hour}, $_->{start_date}->{minute})";
-                    }
-                    else {
-                        $start_date
-                            = "Date($terminal_start_date->{year}, "
-                            . ( $terminal_start_date->{month} - 1 )
-                            . ", $terminal_start_date->{day}, $terminal_start_date->{hour}, $terminal_start_date->{minute})";
-                    }
-                    if ( exists $_->{end_date} ) {
-                        $end_date
-                            = "Date($_->{end_date}->{year}, "
-                            . ( $_->{end_date}->{month} - 1 )
-                            . ", $_->{end_date}->{day}, $_->{end_date}->{hour}, $_->{end_date}->{minute})";
-                    }
-                    else {
-                        $end_date
-                            = "Date($terminal_end_date->{year}, "
-                            . ( $terminal_end_date->{month} - 1 )
-                            . ", $terminal_end_date->{day}, $terminal_end_date->{hour}, $terminal_end_date->{minute})";
-                    }
-                    push @row_array,
-                        [
-                        $issue_key . ": assignee",
-                        $assignee, $start_date, $end_date
-                        ];
-                    push @{ $story_ref->{subtask_ov_obj} }, @row_array;
+                    push @{ $story_ref->{story_ov_obj} }, @row_array;
+
                 }
             }
+            my @header_row = (
+                [   'Row Label',
+                    'Bar Label',
+                    { type => 'date', label => 'Start' },
+                    { type => 'date', label => 'End' }
+                ]
+            );
+            unshift @{ $story_ref->{story_ov_obj} }, @header_row;
         }
-        my @header_row = (
-            [
-                # [   'Issue',
-                #     'Field Type',
-                #     'Field Value',
-                'Row Label',
-                'Bar Label',
-
-                #{ type => 'string', role  => 'tooltip' },
-                { type => 'date', label => 'Start' },
-                { type => 'date', label => 'End' }
-            ]
-        );
-        unshift @{ $story_ref->{story_ov_obj} }, @header_row;
     }
     return $self;
+}
+
+sub date_termination {
+    my ( $event, $terminal_start_date, $terminal_end_date ) = @_;
+    my ( $start_date, $end_date );
+    if ( exists $event->{start_date} ) {
+        $start_date
+            = "Date($event->{start_date}->{year}, "
+            . ( $event->{start_date}->{month} - 1 )
+            . ",$event->{start_date}->{day}, $event->{start_date}->{hour}, $event->{start_date}->{minute})";
+    }
+    else {
+        $start_date
+            = "Date($terminal_start_date->{year}, "
+            . ( $terminal_start_date->{month} - 1 )
+            . ", $terminal_start_date->{day}, $terminal_start_date->{hour}, $terminal_start_date->{minute})";
+    }
+    if ( exists $event->{end_date} ) {
+        $end_date
+            = "Date($event->{end_date}->{year}, "
+            . ( $event->{end_date}->{month} - 1 )
+            . ", $event->{end_date}->{day}, $event->{end_date}->{hour}, $event->{end_date}->{minute})";
+    }
+    else {
+        $end_date
+            = "Date($terminal_end_date->{year}, "
+            . ( $terminal_end_date->{month} - 1 )
+            . ", $terminal_end_date->{day}, $terminal_end_date->{hour}, $terminal_end_date->{minute})";
+    }
+    return ( $start_date, $end_date );
+
 }
 
 sub write_overview_obj_json {
@@ -434,14 +340,6 @@ sub ov_index_html {
             . $story_ref->{subtask_assignee_delta}
             . ']</span></a></li>' . "\n";
     }
-
-    # (   my $body_div = qq{
-    #     <div class="body_offset">
-    #     <br><br>
-    #     <h2><a>$self->{sprint_name}</a></h2>
-    #     </div>
-    #     }
-    # ) =~ s/ {4,8}//mg;
     $self->{index_html} .= $ul_div_close . $html_tag_close;
 }
 
@@ -472,7 +370,7 @@ sub ov_static_html {
               <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization',
        'version':'1','packages':['timeline']}]}"></script>
               <script type="text/javascript" src="./$story_ref->{issue_key}.json"></script>
-              <div id="chart-div" style="width: 1000px; height: 2000px;"></div>
+              <div id="chart-div" style="width: 10000px; height: 2000px;"></div>
             </div>
             </body>
             </html>
@@ -570,5 +468,94 @@ sub ov_write_html {
     }
     return $self;
 }
+
+sub colors_js {
+    my $self = shift;
+    $self->{color_js_text} = qq|
+               for (index = 0; index < document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline').length; index++) {  
+                  var colors = {
+                    'In Progress': 'darkcyan',
+                    'In Review': 'dodgerblue',
+                    'To Do': 'gray',
+                    'In Test': 'darkblue',
+                    'Merge Pending': 'slateblue',
+                    'Done': 'indigo'
+                  };
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Progress/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor = "darkcyan";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Review/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "dodgerblue";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/To Do/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "gray";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Test/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "darkblue";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Merge Pending/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "slateblue";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Ready To Accept/img)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "slateblue";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Ready to Merge/img)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "slateblue";
+                  }                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Done/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "indigo";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Assignee.*/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "seagreen";
+                  }  
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Assignee: unassigned/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "indianred";
+                  }  
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Comment/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "olivedrab";
+                  }                                
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Summary/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "palevioletred";
+                  }             
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Description/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "palevioletred";
+                  } 
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Story Points/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "palevioletred";
+                  }
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Priority/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "plum";
+                  }   
+                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Issuetype/mg)) {
+                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
+                      = "plum";
+                  }
+                }
+                var arr = document.querySelectorAll('div.tl-timegroup');
+                for (index = 0; index < arr.length; index++) {
+                  if ( arr[index].className.match(/tl-timegroup\$/) ) {
+                    arr[index].style.backgroundColor = "lightgray";
+                  }
+                }
+                var arr2 = document.querySelectorAll('div.tl-timegroup-message');
+                for (index = 0; index < arr2.length; index++) {
+                    arr2[index].style.color = "gray";
+                }|;
+    return $self;
+}
+
 
 1;

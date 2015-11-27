@@ -14,7 +14,11 @@ sub new {
     my $self  = {};
     my $class = shift;
     bless( $self, $class );
-    my ( $username, $password ) = @_;
+    return $self;
+}
+sub client {
+    my $self = shift;
+    my ($username, $password) = @_;
     $self->{username}     = $username;
     $self->{password}     = $password;
     $self->{auth_headers} = {
@@ -25,7 +29,7 @@ sub new {
     };
     $self->{client} = REST::Client->new();
     $self->{client}->setHost("https://jira.cpanel.net");
-    return $self;
+    return $self;   
 }
 
 sub dt_iso_8601 {

@@ -15,7 +15,7 @@ use DateTime qw( compare );
 sub new {
     my $class = shift;
     my ( $username, $password ) = @_;
-    my $self = $class->SUPER::new( $username, $password );
+    my $self = $class->SUPER::new();
     return $self;
 }
 
@@ -24,9 +24,10 @@ sub subtask_builder {
     my $parent = shift;
     my ( $start_date, $start_datetime, $end_date, $end_datetime ) = @_;
     foreach ( @{ $self->{jiraIssue}->{fields}->{subtasks} } ) {
-        my $subtask = JiraUtils::Issues::ToTimeline->new( $self->{username},
-            $self->{password} );
-        $subtask->{issue_key} = $_->{key};
+        my $subtask = JiraUtils::Issues::ToTimeline->new();
+        $subtask->{client}       = $self->{client};
+        $subtask->{auth_headers} = $self->{auth_headers};
+        $subtask->{issue_key}    = $_->{key};
         $subtask->issue_request( 'get', 'changelog' );
         my $buckets = [
             'summary', 'description', 'priority', 'issuetype',
@@ -53,6 +54,7 @@ sub subtask_builder {
 
 sub span_tile_events {
     my $self = shift;
+    use Data::Dumper;
     my ($terminal_start_date, $terminal_start_datetime,
         $terminal_end_date,   $terminal_end_datetime
     ) = @_;
@@ -73,7 +75,6 @@ sub span_tile_events {
                 $event->{start_date}     = $terminal_start_date;
                 $event->{start_datetime} = $terminal_start_datetime;
             }
-
             if ( $_ != $#{ $self->{buckets}->{$current_bucket} } ) {
                 my ( $end_date, $end_datetime )
                     = _timeline_time( $next_bucket_instance->{created} );
@@ -85,6 +86,9 @@ sub span_tile_events {
                     $event->{end_date}     = $terminal_end_date;
                     $event->{end_datetime} = $terminal_end_datetime;
                 }
+            }
+            if ( !$event->{end_date} ) {
+                $event->{end_date} = $terminal_end_date;
             }
             foreach ( @{ $bucket_instance->{items} } ) {
                 if ( $_->{field} eq $current_bucket ) {
@@ -224,7 +228,7 @@ sub issue_dir {
 
 sub write_json {
     my $self = shift;
-    open my $fh, ">", "./$self->{issue_key}/$self->{issue_key}.json"
+    open my $fh, '>', "./$self->{issue_key}/$self->{issue_key}.json"
         or die("Cannot open filehandle $self->{issue_key}: $!\n");
     print $fh "var timeline_json = "
         . to_json( $self->{'timeline_href'},
@@ -232,7 +236,9 @@ sub write_json {
         or die("Cannot print to $self->{key}: $!");
     $self->JiraUtils::Issues::ToTimeline::write_subtask_json()
         if defined $self->{timeline_href}->{subtasks};
-
+    $self->colors_js();
+    open my $fh_color, '>', "./$self->{issue_key}/color.js";
+    print $fh_color $self->{color_js_text};
     return $self;
 }
 
@@ -262,113 +268,27 @@ sub write_html {
         <!DOCTYPE html>
         <html>
         <head>
-        <meta charset=\"UTF-8\">
+        <meta charset="UTF-8">
         </head>
-        <title>$self->{issue_key}: Timeline<\/title>
-        <head><\/head>
+        <title>$self->{issue_key}: Timeline</title>
+        <head></head>
         <body>
             <!-- 1 -->
-            <link title=\"timeline-styles\" rel=\"stylesheet\" href=\"\/\/cdn.knightlab.com\/libs\/timeline3\/latest\/css\/timeline.css\">
+            <link title="timeline-styles" rel="stylesheet" href="//cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 
             <!-- 2 -->
-            <script src=\"\/\/cdn.knightlab.com\/libs\/timeline3\/latest\/js\/timeline.js\"><\/script>
+            <script src="//cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
 
-            <div id=\'timeline-embed\' style=\"width: 100%; height: 600px\"><\/div>
-            <script type=\"text\/javascript\" src=\"$self->{issue_key}.json\"><\/script>
+            <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+            <script type="text/javascript" src="$self->{issue_key}.json"></script>
 
-            <script type=\"text\/javascript\">
-                var options = $options;
-                window.timeline = new TL.Timeline(\'timeline-embed\', timeline_json, options);
-            <\/script>
             <script type="text/javascript">
-                for (index = 0; index < document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline').length; index++) {  
-                  var colors = {
-                    'In Progress': 'darkcyan',
-                    'In Review': 'dodgerblue',
-                    'To Do': 'gray',
-                    'In Test': 'darkblue',
-                    'Ready To Accept': 'slateblue',
-                    'Merge Pending': 'slateblue',
-                    'Ready to Merge': 'slateblue',
-                    'Done': 'indigo'
-                  };
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Progress/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor = "darkcyan";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Review/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "dodgerblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/To Do/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "gray";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Test/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "darkblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Merge Pending/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "slateblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Ready To Accept/img)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "slateblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Ready to Merge/img)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "slateblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Done/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "indigo";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Assignee.*/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "seagreen";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Assignee: unassigned/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "indianred";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Comment/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "olivedrab";
-                  } 
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Summary/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "palevioletred";
-                  }             
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Description/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "palevioletred";
-                  } 
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Story Points/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "palevioletred";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Priority/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "plum";
-                  }   
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Issuetype/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "plum";
-                  }  
-                }
-                var arr = document.querySelectorAll('div.tl-timegroup');
-                for (index = 0; index < arr.length; index++) {
-                  if ( arr[index].className.match(/tl-timegroup\$/) ) {
-                    arr[index].style.backgroundColor = "lightgray";
-                  }
-                }
-                var arr2 = document.querySelectorAll('div.tl-timegroup-message');
-                for (index = 0; index < arr2.length; index++) {
-                    arr2[index].style.color = "gray";
-                }
+                var options = $options;
+                window.timeline = new TL.Timeline('timeline-embed', timeline_json, options);
             </script>
-        <\/body>
-        <\/html>
+            <script type="text/javascript" src="color.js"></script>
+        </body>
+        </html>
     HTML
     open my $fh, ">", "./$self->{issue_key}/$self->{issue_key}.html"
         or die(
@@ -393,110 +313,27 @@ sub write_subtask_html {
         <!DOCTYPE html>
         <html>
         <head>
-        <meta charset=\"UTF-8\">
+        <meta charset="UTF-8">
         </head>
         <title>$_->{issue_key}: Timeline<\/title>
-        <head><\/head>
+        <head></head>
         <body>
             <!-- 1 -->
-            <link title=\"timeline-styles\" rel=\"stylesheet\" href=\"\/\/cdn.knightlab.com\/libs\/timeline3\/latest\/css\/timeline.css\">
+            <link title="timeline-styles" rel="stylesheet" href="//cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 
             <!-- 2 -->
-            <script src=\"\/\/cdn.knightlab.com\/libs\/timeline3\/latest\/js\/timeline.js\"><\/script>
+            <script src="//cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
 
-            <div id=\'timeline-embed\' style=\"width: 100%; height: 600px\"><\/div>
-            <script type=\"text\/javascript\" src=\"$_->{issue_key}.json\"><\/script>
+            <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+            <script type="text/javascript" src="$_->{issue_key}.json"></script>
 
-            <script type=\"text\/javascript\">
-                var options = $options;
-                window.timeline = new TL.Timeline(\'timeline-embed\', timeline_json, options);
-            <\/script>
             <script type="text/javascript">
-                for (index = 0; index < document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline').length; index++) {  
-                  var colors = {
-                    'In Progress': 'darkcyan',
-                    'In Review': 'dodgerblue',
-                    'To Do': 'gray',
-                    'In Test': 'darkblue',
-                    'Merge Pending': 'slateblue',
-                    'Done': 'indigo'
-                  };
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Progress/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor = "darkcyan";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Review/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "dodgerblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/To Do/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "gray";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/In Test/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "darkblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Merge Pending/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "slateblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Ready To Accept/img)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "slateblue";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Ready to Merge/img)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "slateblue";
-                  }                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Done/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "indigo";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Assignee.*/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "seagreen";
-                  }  
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Assignee: unassigned/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "indianred";
-                  }  
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Comment/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "olivedrab";
-                  }                                
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Summary/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "palevioletred";
-                  }             
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Description/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "palevioletred";
-                  } 
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Story Points/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "palevioletred";
-                  }
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Priority/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "plum";
-                  }   
-                  if (document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small h2.tl-headline')[index].innerHTML.match(/Issuetype/mg)) {
-                    document.querySelectorAll('div.tl-timemarker-content-container.tl-timemarker-content-container-small')[index].style.backgroundColor 
-                      = "plum";
-                  }
-                }
-                var arr = document.querySelectorAll('div.tl-timegroup');
-                for (index = 0; index < arr.length; index++) {
-                  if ( arr[index].className.match(/tl-timegroup\$/) ) {
-                    arr[index].style.backgroundColor = "lightgray";
-                  }
-                }
-                var arr2 = document.querySelectorAll('div.tl-timegroup-message');
-                for (index = 0; index < arr2.length; index++) {
-                    arr2[index].style.color = "gray";
-                }
+                var options = $options;
+                window.timeline = new TL.Timeline('timeline-embed', timeline_json, options);
             </script>
-        <\/body>
-        <\/html>
+            <script type="text/javascript" src="color.js"></script>
+        </body>
+        </html>
     HTML
         open my $fh, ">", "./$_->{parent}/$_->{issue_key}.html"
             or die("Cannot open file $_->{parent}\/$_->{issue_key}: $!\n");
@@ -505,5 +342,6 @@ sub write_subtask_html {
     }
     return $self;
 }
+
 
 1;

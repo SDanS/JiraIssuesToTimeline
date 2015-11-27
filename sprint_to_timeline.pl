@@ -36,7 +36,8 @@ __PACKAGE__->run() unless caller;
 
 sub run {
     $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
-    my $sprint = JiraUtils::Issues::Sprint->new( $username, $password );
+    my $sprint = JiraUtils::Issues::Sprint->new();
+    $sprint->client( $username, $password );
     $sprint->{end_datetime} = DateTime->new(
         year   => $end_date[0],
         month  => $end_date[1],
@@ -50,7 +51,7 @@ sub run {
         day    => $sprint->{end_datetime}->day,
         hour   => $sprint->{end_datetime}->hour,
         minute => $sprint->{end_datetime}->minute
-    };
+    } if @end_date;
     $sprint->{start_datetime} = DateTime->new(
         year   => $start_date[0],
         month  => $start_date[1],
@@ -64,7 +65,7 @@ sub run {
         day    => $sprint->{start_datetime}->day,
         hour   => $sprint->{start_datetime}->hour,
         minute => $sprint->{start_datetime}->minute
-    };
+    } if @start_date;
     $sprint->{sprint_name} = $sprint_name;
     $sprint->{dir_name} = $dir_name;
     #print @issues;

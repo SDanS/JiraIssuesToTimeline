@@ -10,7 +10,6 @@ use JSON;
 
 use JiraUtils::Issues::ToTimeline;
 
-#use Data::Dumper;
 
 use parent qw(JiraUtils);
 
@@ -20,6 +19,7 @@ sub new {
     my $self = $class->SUPER::new( $username, $password );
     return $self;
 }
+
 
 sub issue_request {
     my $self         = shift;
@@ -35,7 +35,6 @@ sub issue_request {
     return $self;
 }
 
-### Get out the useful bits and put them into a reasonably shallow hash.
 sub buckets {
     my $self          = shift;
     my $history_items = shift;
