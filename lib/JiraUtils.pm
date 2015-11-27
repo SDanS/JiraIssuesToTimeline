@@ -16,6 +16,8 @@ sub new {
     bless( $self, $class );
     return $self;
 }
+
+### Create a universal REST::Client instance for entire process.
 sub client {
     my $self = shift;
     my ($username, $password) = @_;
@@ -32,6 +34,7 @@ sub client {
     return $self;   
 }
 
+### For converting Jira's time format to something more useful.
 sub dt_iso_8601 {
     my $time          = shift;
     my @stripped_time = split( '\.', $time );

@@ -12,8 +12,6 @@ use JSON;
 
 use parent qw( JiraUtils::Issues );
 
-#use JiraUtils::Issues;
-
 sub new {
     my $class = shift;
     my ( $username, $password ) = @_;
@@ -21,6 +19,7 @@ sub new {
     return $self;
 }
 
+### Find out what issues (not subtasks) belong to a sprint.
 sub issues_in_query {
     my $self = shift;
     use Data::Dumper;
@@ -34,6 +33,7 @@ sub issues_in_query {
         . "\"$self->{sprint_info}->{name}\""
         . ' AND issuetype != 5';
     my $issue_string .= $_ . ',' foreach @{ $self->{sprint_info}->{issues} };
+
     foreach ( 0 .. $#{ $self->{sprint_info}->{issues} } ) {
         $issue_string .= $self->{sprint_info}->{issues}->[$_] . ','
             unless $_ == $#{ $self->{sprint_info}->{issues} };
@@ -58,6 +58,7 @@ sub issues_in_query {
     return $self;
 }
 
+### Get the issues and their subtasks.
 sub get_issues {
     my $self = shift;
     my ( $start_date, $start_datetime, $end_date, $end_datetime ) = @_;
@@ -78,31 +79,28 @@ sub get_issues {
             $buckets,  $start_date, $start_datetime,
             $end_date, $end_datetime
         );
-        $self->{issue_objs}->{$_}
-            ->JiraUtils::Issues::ToTimeline::span_tile_events( $start_date,
+        $self->{issue_objs}->{$_}->span_tile_events( $start_date,
             $start_datetime, $end_date, $end_datetime );
-        $self->{issue_objs}->{$_}
-            ->JiraUtils::Issues::ToTimeline::scope_events( $start_date,
+        $self->{issue_objs}->{$_}->scope_events( $start_date,
             $start_datetime, $end_date, $end_datetime );
-        $self->{issue_objs}->{$_}
-            ->JiraUtils::Issues::ToTimeline::comment_events( $start_date,
+        $self->{issue_objs}->{$_}->comment_events( $start_date,
             $start_datetime, $end_date, $end_datetime );
         delete $self->{issue_objs}->{$_}->{buckets};
     }
     return $self;
 }
 
+### Write out those issues and their subtasks if they exist.
 sub write_issues {
     my $self = shift;
     foreach ( @{ $self->{sprint_info}->{story_keys} } ) {
-        $self->{issue_objs}->{$_}
-            ->JiraUtils::Issues::ToTimeline::write_json();
-        $self->{issue_objs}->{$_}
-            ->JiraUtils::Issues::ToTimeline::write_html();
+        $self->{issue_objs}->{$_}->write_json();
+        $self->{issue_objs}->{$_}->write_html();
     }
     return $self;
 }
 
+### Build data structure for Google Timeline story overview.
 sub build_overview_obj {
     my $self = shift;
     my ($terminal_start_date, $terminal_start_datetime,
@@ -157,19 +155,29 @@ sub build_overview_obj {
 
                 }
             }
-            my @header_row = (
-                [   'Row Label',
-                    'Bar Label',
-                    { type => 'date', label => 'Start' },
-                    { type => 'date', label => 'End' }
-                ]
-            );
-            unshift @{ $story_ref->{story_ov_obj} }, @header_row;
+
+            # my @header_row = (
+            #     [   'Row Label',
+            #         'Bar Label',
+            #         { type => 'date', label => 'Start' },
+            #         { type => 'date', label => 'End' }
+            #     ]
+            # );
+
         }
+        my @header_row = (
+            [   'Row Label',
+                'Bar Label',
+                { type => 'date', label => 'Start' },
+                { type => 'date', label => 'End' }
+            ]
+        );
+        unshift @{ $story_ref->{story_ov_obj} }, @header_row;
     }
     return $self;
 }
 
+### Handle date cutoffs.
 sub date_termination {
     my ( $event, $terminal_start_date, $terminal_end_date ) = @_;
     my ( $start_date, $end_date );
@@ -177,13 +185,13 @@ sub date_termination {
         $start_date
             = "Date($event->{start_date}->{year}, "
             . ( $event->{start_date}->{month} - 1 )
-            . ",$event->{start_date}->{day}, $event->{start_date}->{hour}, $event->{start_date}->{minute})";
+            . " ,$event->{start_date}->{day}, $event->{start_date}->{hour}, $event->{start_date}->{minute})";
     }
     else {
         $start_date
             = "Date($terminal_start_date->{year}, "
             . ( $terminal_start_date->{month} - 1 )
-            . ", $terminal_start_date->{day}, $terminal_start_date->{hour}, $terminal_start_date->{minute})";
+            . ", $terminal_start_date->{day},  $terminal_start_date->{hour}, $terminal_start_date->{minute})";
     }
     if ( exists $event->{end_date} ) {
         $end_date
@@ -201,6 +209,7 @@ sub date_termination {
 
 }
 
+### Write javascript for overview.
 sub write_overview_obj_json {
     my $self = shift;
     foreach ( keys %{ $self->{issue_objs} } ) {
@@ -237,6 +246,7 @@ sub write_overview_obj_json {
     return $self;
 }
 
+### Setup sprint directory.
 sub dir_setup {
     my $self     = shift;
     my $dir_name = shift;
@@ -251,6 +261,7 @@ sub dir_setup {
     return $self;
 }
 
+### Build html for sidenav on overview.
 sub ov_gather_links_for_html {
     my $self = shift;
     my $story_ref;
@@ -271,6 +282,7 @@ sub ov_gather_links_for_html {
     return $self;
 }
 
+### Build html for the rest of the sidenav menu.
 sub ov_nav_menu_html {
     my $self = shift;
     my $story_ref;
@@ -300,6 +312,7 @@ sub ov_nav_menu_html {
     return $self;
 }
 
+### Build the sprint overview menu/index page.
 sub ov_index_html {
     my $self = shift;
     my $story_ref;
@@ -343,6 +356,7 @@ sub ov_index_html {
     $self->{index_html} .= $ul_div_close . $html_tag_close;
 }
 
+### Write the sprint overview page.
 sub write_index_html {
     my $self = shift;
     open my $fh, '>', './index.html';
@@ -350,6 +364,7 @@ sub write_index_html {
 
 }
 
+### Build Story/Issue Google Timeline overview page.
 sub ov_static_html {
     my $self = shift;
     my $story_ref;
@@ -370,7 +385,7 @@ sub ov_static_html {
               <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization',
        'version':'1','packages':['timeline']}]}"></script>
               <script type="text/javascript" src="./$story_ref->{issue_key}.json"></script>
-              <div id="chart-div" style="width: 10000px; height: 2000px;"></div>
+              <div id="chart-div" style="width: 100%; height: 100%;"></div>
             </div>
             </body>
             </html>
@@ -380,6 +395,7 @@ sub ov_static_html {
     return $self;
 }
 
+### CSS for stuff.
 sub ov_menu_css {
     my $self = shift;
     (   my $css = qq[
@@ -459,6 +475,7 @@ overflow-y: auto;
 
 }
 
+### Write issue/story overview page
 sub ov_write_html {
     my $self = shift;
     foreach ( keys $self->{issue_objs} ) {
@@ -469,6 +486,7 @@ sub ov_write_html {
     return $self;
 }
 
+### Colors for TimelineJS
 sub colors_js {
     my $self = shift;
     $self->{color_js_text} = qq|
@@ -556,6 +574,5 @@ sub colors_js {
                 }|;
     return $self;
 }
-
 
 1;
