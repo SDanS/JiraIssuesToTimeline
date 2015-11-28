@@ -140,6 +140,7 @@ sub build_overview_obj {
                 my $start_date;
                 my $end_date;
                 if ( $_->{group} eq 'status' || $_->{group} eq 'assignee' ) {
+                    $story_ref->{ $_->{group} . '_count' }++;
                     my $event_type = $_->{group};
                     my @row_array;
                     my ($status) = $_->{text}->{text} =~ /.* to (.+)/;
@@ -339,6 +340,10 @@ sub ov_index_html {
 
     foreach ( keys $self->{issue_objs} ) {
         $story_ref = $self->{issue_objs}->{$_};
+        print "count, status, assignee \n";
+        print Dumper $story_ref->{subtask_count},
+            $story_ref->{status_count},
+            $story_ref->{assignee_count};
         $self->{index_html}
             .= '<li><a href="'
             . "./$story_ref->{issue_key}.html" . '">'
@@ -348,9 +353,9 @@ sub ov_index_html {
             . 'Subtasks count: ['
             . $story_ref->{subtask_count}
             . '] Status changes: ['
-            . $story_ref->{subtask_statuses}
+            . $story_ref->{status_count}
             . '] Assignee changes: ['
-            . $story_ref->{subtask_assignee_delta}
+            . $story_ref->{assignee_count}
             . ']</span></a></li>' . "\n";
     }
     $self->{index_html} .= $ul_div_close . $html_tag_close;
