@@ -3,9 +3,14 @@
 [/]Zoom out timelinejs bar by default or to some relative scale setting.
 [/]status change verbiage to show destination status.
 [/]Landing page: status, assignee transitions.
-[*]Landing page: time taken
-[*]Stash integration:In Review approvals, declines, diff size and comments (?) in stash pull requests.
-[*]Landing Page: code Complexity and risk assessment.
-emtpy rows on overview
-allow any jql issue query
+[x]Landing page: time taken
+[x]Stash integration:In Review approvals, declines, diff size and comments (?) in stash pull requests.
+[*]Stash pull request comments and commits.
+[X]Landing Page: code Complexity and risk assessment.
+[*]emtpy rows on overview
+[*]allow any jql issue query
+
+[X] Will not be implemented
+[/] Implemented
+[*] To be implemented.
 
