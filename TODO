@@ -5,7 +5,7 @@
 [/]Landing page: status, assignee transitions.
 [x]Landing page: time taken
 [x]Stash integration:In Review approvals, declines, diff size and comments (?) in stash pull requests.
-[*]Stash pull request comments and commits.
+[*]Stash pull request comments ( not diff ) and commits.
 [X]Landing Page: code Complexity and risk assessment.
 [*]emtpy rows on overview
 [*]allow any jql issue query
