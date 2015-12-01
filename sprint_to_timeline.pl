@@ -5,6 +5,7 @@ use warnings;
 
 use Getopt::Long;
 use JiraUtils::Issues::Sprint;
+use Carp;
 
 use DateTime;
 
@@ -27,8 +28,7 @@ GetOptions(
     "username=s"      => \$username,
     "password=s"      => \$password,
     "sprint_name=s"   => \$sprint_name,
-    "project=s"       => \$project,
-    "issues=s{1,}"         => \@issues,
+    "issues=s{1,}"    => \@issues,
     "dir_name=s"      => \$dir_name,
 );
 
@@ -36,6 +36,12 @@ __PACKAGE__->run() unless caller;
 
 sub run {
     $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+    croak '--dir_name and --sprint_name are mutually exclusive options'
+        if ( $sprint_name && $dir_name );
+    croak 'Must provide both a username or password'
+        if ( ( !$username ) || ( !$password ) );
+    croak 'Must provide --issues or a query when using --dir_name'
+        if ( ($dir_name) && ( !@issues ) );
     my $sprint = JiraUtils::Issues::Sprint->new();
     $sprint->client( $username, $password );
     $sprint->{end_datetime} = DateTime->new(
@@ -51,7 +57,8 @@ sub run {
         day    => $sprint->{end_datetime}->day,
         hour   => $sprint->{end_datetime}->hour,
         minute => $sprint->{end_datetime}->minute
-    } if @end_date;
+        }
+        if @end_date;
     $sprint->{start_datetime} = DateTime->new(
         year   => $start_date[0],
         month  => $start_date[1],
@@ -65,11 +72,12 @@ sub run {
         day    => $sprint->{start_datetime}->day,
         hour   => $sprint->{start_datetime}->hour,
         minute => $sprint->{start_datetime}->minute
-    } if @start_date;
+        }
+        if @start_date;
     $sprint->{sprint_name} = $sprint_name;
-    $sprint->{dir_name} = $dir_name;
-    #print @issues;
-    $sprint->issues_in_query($sprint_name, \@issues);
+    $sprint->{dir_name}    = $dir_name;
+
+    $sprint->issues_in_query( $sprint_name, \@issues );
     $sprint->dir_setup($dir_name);
     $sprint->get_issues(
         $sprint->{start_date}, $sprint->{start_datetime},

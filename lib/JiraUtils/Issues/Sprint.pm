@@ -7,6 +7,8 @@ no warnings 'uninitialized';
 
 use URI::Escape;
 use REST::Client;
+use Carp;
+use DateTime;
 
 use JSON;
 
@@ -22,7 +24,6 @@ sub new {
 ### Find out what issues (not subtasks) belong to a sprint.
 sub issues_in_query {
     my $self = shift;
-    use Data::Dumper;
     $self->{sprint_info}->{name}   = shift;
     $self->{sprint_info}->{issues} = shift;
     my $expand     = shift;
@@ -32,8 +33,9 @@ sub issues_in_query {
         = 'sprint = '
         . "\"$self->{sprint_info}->{name}\""
         . ' AND issuetype != 5';
-    my $issue_string .= $_ . ',' foreach @{ $self->{sprint_info}->{issues} };
 
+    #my $issue_string .= $_ . ',' foreach @{ $self->{sprint_info}->{issues} };
+    my $issue_string;
     foreach ( 0 .. $#{ $self->{sprint_info}->{issues} } ) {
         $issue_string .= $self->{sprint_info}->{issues}->[$_] . ','
             unless $_ == $#{ $self->{sprint_info}->{issues} };
@@ -107,6 +109,7 @@ sub build_overview_obj {
         $terminal_end_date,   $terminal_end_datetime
     ) = @_;
     my $story_ref;
+
     foreach ( @{ $self->{sprint_info}->{story_keys} } ) {
         $self->{issue_objs}->{$_}->{story_ov_obj}   = [];
         $self->{issue_objs}->{$_}->{subtask_ov_obj} = [];
@@ -134,36 +137,55 @@ sub build_overview_obj {
             my $subtask_ref = $_;
             my $issue_key   = $_->{issue_key};
             my $parent      = $_->{parent};
+            my ( $event_type, $status, $start_date, $end_date );
+            my @placeholder_row;
             $story_ref->{subtask_count}++;
             $story_ref->{subtasks}->{$issue_key} = {};
             foreach ( @{ $_->{events} } ) {
-                my $start_date;
-                my $end_date;
+                my @row_array;
+                my $subtask_event = $_;
                 if ( $_->{group} eq 'status' || $_->{group} eq 'assignee' ) {
+                    $subtask_ref->{ $_->{group} . '_count' }++;
                     $story_ref->{ $_->{group} . '_count' }++;
-                    my $event_type = $_->{group};
-                    my @row_array;
-                    my ($status) = $_->{text}->{text} =~ /.* to (.+)/;
-                    my ( $start_date, $end_date )
+                    $event_type = $_->{group};
+                    ($status) = $_->{text}->{text} =~ /.* to (.+)/;
+                    ( $start_date, $end_date )
                         = date_termination( $_, $terminal_start_date,
                         $terminal_end_date );
-                    push @row_array,
-                        [
-                        $issue_key . ': ' . $event_type,
-                        $status, $start_date, $end_date
-                        ];
-                    push @{ $story_ref->{story_ov_obj} }, @row_array;
-
                 }
+                push @row_array,
+                    [
+                    $issue_key . ': ' . $event_type,
+                    $status, $start_date, $end_date
+                    ];
+                push @{ $story_ref->{story_ov_obj} }, @row_array;
             }
+            unless ( $subtask_ref->{status_count} ) {
+                ### Switch to &date_determination and pass in $subtask_event.
+                my ( $start_date, $end_date )
+                    = date_termination( {}, $terminal_start_date,
+                    $terminal_end_date );
 
-            # my @header_row = (
-            #     [   'Row Label',
-            #         'Bar Label',
-            #         { type => 'date', label => 'Start' },
-            #         { type => 'date', label => 'End' }
-            #     ]
-            # );
+                push @placeholder_row,
+                    [
+                    $issue_key . ': status', 'placeholder',
+                    $start_date,             $end_date
+                    ];
+                push @{ $story_ref->{story_ov_obj} }, @placeholder_row;
+            }
+            unless ( $subtask_ref->{assignee_count} ) {
+                my ( $start_date, $end_date )
+                    = date_termination( {}, $terminal_start_date,
+                    $terminal_end_date );
+
+                push @placeholder_row,
+                    [
+                    $issue_key . ': assignee', 'placeholder',
+                    $start_date,               $end_date
+                    ];
+
+                push @{ $story_ref->{story_ov_obj} }, @placeholder_row;
+            }
 
         }
         my @header_row = (
@@ -173,6 +195,9 @@ sub build_overview_obj {
                 { type => 'date', label => 'End' }
             ]
         );
+
+        #use Data::Dumper;
+        # print Dumper $story_ref->{story_ov_obj};
         unshift @{ $story_ref->{story_ov_obj} }, @header_row;
     }
     return $self;
@@ -182,7 +207,7 @@ sub build_overview_obj {
 sub date_termination {
     my ( $event, $terminal_start_date, $terminal_end_date ) = @_;
     my ( $start_date, $end_date );
-    if ( exists $event->{start_date} ) {
+    if ( defined $event->{start_date} ) {
         $start_date
             = "Date($event->{start_date}->{year}, "
             . ( $event->{start_date}->{month} - 1 )
@@ -194,7 +219,7 @@ sub date_termination {
             . ( $terminal_start_date->{month} - 1 )
             . ", $terminal_start_date->{day},  $terminal_start_date->{hour}, $terminal_start_date->{minute})";
     }
-    if ( exists $event->{end_date} ) {
+    if ( defined $event->{end_date} ) {
         $end_date
             = "Date($event->{end_date}->{year}, "
             . ( $event->{end_date}->{month} - 1 )
@@ -340,10 +365,7 @@ sub ov_index_html {
 
     foreach ( keys $self->{issue_objs} ) {
         $story_ref = $self->{issue_objs}->{$_};
-        print "count, status, assignee \n";
-        print Dumper $story_ref->{subtask_count},
-            $story_ref->{status_count},
-            $story_ref->{assignee_count};
+        $story_ref->{status_count}, $story_ref->{assignee_count};
         $self->{index_html}
             .= '<li><a href="'
             . "./$story_ref->{issue_key}.html" . '">'
@@ -364,8 +386,11 @@ sub ov_index_html {
 ### Write the sprint overview page.
 sub write_index_html {
     my $self = shift;
-    open my $fh, '>', './index.html';
-    print $fh $self->{index_html};
+    my $fh;
+    open $fh, '>', './index.html'
+        or croak "Cannot open filehandle, $fh: $!";
+    print $fh $self->{index_html}
+        or croak "Cannot print to filehandle, $fh: $!";
 
 }
 
@@ -474,8 +499,9 @@ overflow-y: auto;
 }
 ]
     ) =~ s/ {4}//mg;
-    open my $fh, '>', './menu.css';
-    print $fh $css;
+    my $fh;
+    open $fh, '>', './menu.css' or croak "Cannot open filehandle, $fh: $!";
+    print $fh $css or croak "Cannot print to filehandle, $fh: $!";
     return $self;
 
 }
@@ -485,8 +511,11 @@ sub ov_write_html {
     my $self = shift;
     foreach ( keys $self->{issue_objs} ) {
         my $story_ref = $self->{issue_objs}->{$_};
-        open my $fh, '>', "./$story_ref->{issue_key}.html";
-        print $fh $story_ref->{main_html};
+        my $fh;
+        open $fh, '>', "./$story_ref->{issue_key}.html"
+            or croak "Cannot open filehandle, $fh: $!";
+        print $fh $story_ref->{main_html}
+            or croak "Cannot print to filehandle, $fh: $!";
     }
     return $self;
 }

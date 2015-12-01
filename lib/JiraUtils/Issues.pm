@@ -5,6 +5,7 @@ use warnings;
 
 no warnings 'uninitialized';
 
+use Carp;
 use REST::Client;
 use JSON;
 
@@ -13,6 +14,7 @@ use parent qw(JiraUtils);
 sub new {
     my $class = shift;
     my ( $username, $password ) = @_;
+
     my $self = $class->SUPER::new( $username, $password );
     return $self;
 }
@@ -26,8 +28,10 @@ sub issue_request {
     if ( $request_type eq "get" ) {
         $self->{client}
             ->GET( '/rest/api/2/issue/' . $self->{issue_key} . $req_expand,
-            $self->{auth_headers} );
-        $self->{jiraIssue} = from_json( $self->{client}->responseContent() );
+            $self->{auth_headers} )
+            or croak 'Could not retrieve issue.';
+        $self->{jiraIssue} = from_json( $self->{client}->responseContent() )
+            or croak 'Response content is not json.';
     }
     return $self;
 }
@@ -121,7 +125,6 @@ sub subtask_builder {
 ### Process status and assignment events into spans for TimelineJS.
 sub span_tile_events {
     my $self = shift;
-    use Data::Dumper;
     my ($terminal_start_date, $terminal_start_datetime,
         $terminal_end_date,   $terminal_end_datetime
     ) = @_;
@@ -181,7 +184,7 @@ sub span_tile_events {
                 my $cmp = DateTime->compare( $event->{end_datetime},
                     $event->{start_datetime} )
                     if ( $event->{end_datetime} && $event->{start_datetime} );
-                if ( defined $cmp && $cmp == 1 ) {
+                if ( $cmp != -1 ) {
                     push @{ $self->{timeline_href}->{events} }, $event;
                 }
             }
@@ -291,7 +294,7 @@ sub _timeline_time {
 sub issue_dir {
     my $self = shift;
     unless ( mkdir "./$self->{issue_key}" ) {
-        die "Unable to create $self->{issue_key}: $!";
+        croak "Unable to create $self->{issue_key}: $!";
     }
     return $self;
 }
@@ -299,18 +302,21 @@ sub issue_dir {
 ### Write out the javascript for story TimelineJS
 sub write_json {
     my $self = shift;
+    my $fh_color;
     open my $fh, '>', "./$self->{issue_key}/$self->{issue_key}.json"
-        or die("Cannot open filehandle $self->{issue_key}: $!\n");
+        or croak("Cannot open filehandle $self->{issue_key}: $!\n");
     print $fh "var timeline_json = "
         . to_json( $self->{'timeline_href'},
         { pretty => 1, allow_blessed => 1 } )
-        or die("Cannot print to $self->{key}: $!");
+        or croak("Cannot print to $self->{key}: $!");
     $self->write_subtask_json()
         if defined $self->{timeline_href}->{subtasks};
 ### This should be moved to Sprint.pm
     $self->colors_js();
-    open my $fh_color, '>', "./$self->{issue_key}/color.js";
-    print $fh_color $self->{color_js_text};
+    open $fh_color, '>', "./$self->{issue_key}/color.js"
+        or croak "Cannot open filehandle: $fh_color";
+    print $fh_color $self->{color_js_text}
+        or croak "Cannot print to file: $fh_color";
     return $self;
 }
 
@@ -319,11 +325,11 @@ sub write_subtask_json {
     my $self = shift;
     foreach ( @{ $self->{timeline_href}->{subtasks} } ) {
         open my $fh, ">", "./$_->{parent}/$_->{issue_key}.json"
-            or die("Cannot open filehandle $_->{issue_key}: $!\n");
+            or croak("Cannot open filehandle $_->{issue_key}: $!\n");
         print $fh "var timeline_json = "
             . to_json( $_, { pretty => 1, allow_blessed => 1 } )
             or
-            die("Cannot print to $_->{parent}\/$_->{issue_key}.json: $!\n");
+            croak("Cannot print to $_->{parent}\/$_->{issue_key}.json: $!\n");
     }
     return $self;
 }
@@ -366,9 +372,9 @@ sub write_html {
         </html>
     HTML
     open my $fh, ">", "./$self->{issue_key}/$self->{issue_key}.html"
-        or die(
+        or croak(
         "Cannot open file $self->{issue_key}\/$self->{issue_key}.html: $!");
-    print $fh $html;
+    print $fh $html or croak "Cannot print to file, $fh: $!";
     $self->write_subtask_html()
         if defined $self->{timeline_href}->{subtasks};
     return $self;
@@ -413,8 +419,8 @@ sub write_subtask_html {
         </html>
     HTML
         open my $fh, ">", "./$_->{parent}/$_->{issue_key}.html"
-            or die("Cannot open file $_->{parent}\/$_->{issue_key}: $!\n");
-        print $fh $html;
+            or croak("Cannot open file $_->{parent}\/$_->{issue_key}: $!\n");
+        print $fh $html or croak "Cannot print to file, $fh: $!";
 
     }
     return $self;
