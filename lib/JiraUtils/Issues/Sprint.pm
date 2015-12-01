@@ -168,7 +168,7 @@ sub build_overview_obj {
 
                 push @placeholder_row,
                     [
-                    $issue_key . ': status', 'placeholder',
+                    $issue_key . ': status', 'No Status Changes',
                     $start_date,             $end_date
                     ];
                 push @{ $story_ref->{story_ov_obj} }, @placeholder_row;
@@ -180,7 +180,7 @@ sub build_overview_obj {
 
                 push @placeholder_row,
                     [
-                    $issue_key . ': assignee', 'placeholder',
+                    $issue_key . ': assignee', 'No Assignee Changes',
                     $start_date,               $end_date
                     ];
 
