@@ -160,32 +160,48 @@ sub span_tile_events {
             if ( !$event->{end_date} ) {
                 $event->{end_date} = $terminal_end_date;
             }
-            foreach ( @{ $bucket_instance->{items} } ) {
-                if ( $_->{field} eq $current_bucket ) {
-                    my $to_string   = $_->{toString}   // 'unassigned';
-                    my $from_string = $_->{fromString} // 'unassigned';
+            foreach ( 0 .. $#{ $bucket_instance->{items} } ) {
+                my $instance_item = $bucket_instance->{items}->[$_];
+                if ( $instance_item->{field} eq
+                    $current_bucket )
+                {
+                    
+                    my $to_string
+                        = $instance_item->{toString}
+                        // 'unassigned';
+                    my $from_string
+                        = $instance_item->{fromString}
+                        // 'unassigned';
                     $text->{headline} = "Assignee: " . $to_string
-                        if $_->{field} eq 'assignee';
-                    $text->{headline} = $to_string if $_->{field} eq 'status';
+                        if $instance_item->{field} eq
+                        'assignee';
+                    $text->{headline} = $to_string
+                        if $instance_item->{field} eq
+                        'status';
                     $text->{text}
-                        = ucfirst( $_->{field} )
+                        = ucfirst( $instance_item->{field} )
                         . ' changed from '
                         . $from_string . ' to '
                         . $to_string;
-                    $event->{group} = $_->{field};
-                    status_colors( $event, $_ )
-                        if $_->{field} eq 'status';
+                    $event->{group}
+                        = $instance_item->{field};
+                    status_colors( $event, $instance_item )
+                        if $instance_item->{field} eq
+                        'status';
                     $event->{background}->{color} = 'seagreen'
-                        if $_->{field} eq 'assignee';
+                        if $instance_item->{field} eq
+                        'assignee';
+                    my $cmp = DateTime->compare( $event->{end_datetime},
+                        $event->{start_datetime} )
+                        if ( $event->{end_datetime}
+                        && $event->{start_datetime} );
+                    if ( ( $cmp != -1 ) ) {
+                        push @{ $self->{timeline_href}->{events} }, $event;
+
+                    }
                 }
                 else {
                     next;
-                }
-                my $cmp = DateTime->compare( $event->{end_datetime},
-                    $event->{start_datetime} )
-                    if ( $event->{end_datetime} && $event->{start_datetime} );
-                if ( $cmp != -1 ) {
-                    push @{ $self->{timeline_href}->{events} }, $event;
                 }
             }
         }

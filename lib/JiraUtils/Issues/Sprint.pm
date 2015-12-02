@@ -33,8 +33,6 @@ sub issues_in_query {
         = 'sprint = '
         . "\"$self->{sprint_info}->{name}\""
         . ' AND issuetype != 5';
-
-    #my $issue_string .= $_ . ',' foreach @{ $self->{sprint_info}->{issues} };
     my $issue_string;
     foreach ( 0 .. $#{ $self->{sprint_info}->{issues} } ) {
         $issue_string .= $self->{sprint_info}->{issues}->[$_] . ','
@@ -111,8 +109,7 @@ sub build_overview_obj {
     my $story_ref;
 
     foreach ( @{ $self->{sprint_info}->{story_keys} } ) {
-        $self->{issue_objs}->{$_}->{story_ov_obj}   = [];
-        $self->{issue_objs}->{$_}->{subtask_ov_obj} = [];
+        $self->{issue_objs}->{$_}->{story_ov_obj} = [];
     }
     foreach ( @{ $self->{sprint_info}->{story_keys} } ) {
         $story_ref = $self->{issue_objs}->{$_};
@@ -152,13 +149,14 @@ sub build_overview_obj {
                     ( $start_date, $end_date )
                         = date_termination( $_, $terminal_start_date,
                         $terminal_end_date );
+
+                    push @row_array,
+                        [
+                        $issue_key . ': ' . $event_type,
+                        $status, $start_date, $end_date
+                        ];
+                    push @{ $story_ref->{story_ov_obj} }, @row_array;
                 }
-                push @row_array,
-                    [
-                    $issue_key . ': ' . $event_type,
-                    $status, $start_date, $end_date
-                    ];
-                push @{ $story_ref->{story_ov_obj} }, @row_array;
             }
             unless ( $subtask_ref->{status_count} ) {
                 ### Switch to &date_determination and pass in $subtask_event.
@@ -196,8 +194,6 @@ sub build_overview_obj {
             ]
         );
 
-        #use Data::Dumper;
-        # print Dumper $story_ref->{story_ov_obj};
         unshift @{ $story_ref->{story_ov_obj} }, @header_row;
     }
     return $self;
@@ -243,8 +239,6 @@ sub write_overview_obj_json {
             "./$self->{issue_objs}->{$_}->{issue_key}.json";
         open my $subtask_fh, ">",
             "./$self->{issue_objs}->{$_}->{issue_key}" . 'subtasks.json';
-        push @{ $self->{issue_objs}->{$_}->{story_ov_obj} },
-            @{ $self->{issue_objs}->{$_}->{subtask_ov_obj} };
         my $story_ov_json
             = to_json( $self->{issue_objs}->{$_}->{story_ov_obj},
             { pretty => 1 } );
