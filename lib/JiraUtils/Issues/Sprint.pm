@@ -34,6 +34,7 @@ sub issues_in_query {
         . "\"$self->{sprint_info}->{name}\""
         . ' AND issuetype != 5';
     my $issue_string;
+
     foreach ( 0 .. $#{ $self->{sprint_info}->{issues} } ) {
         $issue_string .= $self->{sprint_info}->{issues}->[$_] . ','
             unless $_ == $#{ $self->{sprint_info}->{issues} };
@@ -158,33 +159,31 @@ sub build_overview_obj {
                     push @{ $story_ref->{story_ov_obj} }, @row_array;
                 }
             }
-            unless ( $subtask_ref->{status_count} ) {
+            if ( !$subtask_ref->{status_count} ) {
                 ### Switch to &date_determination and pass in $subtask_event.
                 my ( $start_date, $end_date )
                     = date_termination( {}, $terminal_start_date,
                     $terminal_end_date );
-
                 push @placeholder_row,
                     [
                     $issue_key . ': status', 'No Status Changes',
                     $start_date,             $end_date
                     ];
                 push @{ $story_ref->{story_ov_obj} }, @placeholder_row;
+                $subtask_ref->{status_count}++;
             }
-            unless ( $subtask_ref->{assignee_count} ) {
+            if ( !$subtask_ref->{assignee_count} ) {
                 my ( $start_date, $end_date )
                     = date_termination( {}, $terminal_start_date,
                     $terminal_end_date );
-
                 push @placeholder_row,
                     [
                     $issue_key . ': assignee', 'No Assignee Changes',
                     $start_date,               $end_date
                     ];
-
                 push @{ $story_ref->{story_ov_obj} }, @placeholder_row;
+                $subtask_ref->{assignee_count}++;
             }
-
         }
         my @header_row = (
             [   'Row Label',
@@ -193,7 +192,6 @@ sub build_overview_obj {
                 { type => 'date', label => 'End' }
             ]
         );
-
         unshift @{ $story_ref->{story_ov_obj} }, @header_row;
     }
     return $self;

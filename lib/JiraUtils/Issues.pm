@@ -162,39 +162,31 @@ sub span_tile_events {
             }
             foreach ( 0 .. $#{ $bucket_instance->{items} } ) {
                 my $instance_item = $bucket_instance->{items}->[$_];
-                if ( $instance_item->{field} eq
-                    $current_bucket )
-                {
-                    
+                if ( $instance_item->{field} eq $current_bucket ) {
+
                     my $to_string
-                        = $instance_item->{toString}
-                        // 'unassigned';
+                        = $instance_item->{toString} // 'unassigned';
                     my $from_string
-                        = $instance_item->{fromString}
-                        // 'unassigned';
+                        = $instance_item->{fromString} // 'unassigned';
                     $text->{headline} = "Assignee: " . $to_string
-                        if $instance_item->{field} eq
-                        'assignee';
+                        if $instance_item->{field} eq 'assignee';
                     $text->{headline} = $to_string
-                        if $instance_item->{field} eq
-                        'status';
+                        if $instance_item->{field} eq 'status';
                     $text->{text}
                         = ucfirst( $instance_item->{field} )
                         . ' changed from '
                         . $from_string . ' to '
                         . $to_string;
-                    $event->{group}
-                        = $instance_item->{field};
+                    $event->{group} = $instance_item->{field};
                     status_colors( $event, $instance_item )
-                        if $instance_item->{field} eq
-                        'status';
+                        if $instance_item->{field} eq 'status';
                     $event->{background}->{color} = 'seagreen'
-                        if $instance_item->{field} eq
-                        'assignee';
+                        if $instance_item->{field} eq 'assignee';
                     my $cmp = DateTime->compare( $event->{end_datetime},
                         $event->{start_datetime} )
                         if ( $event->{end_datetime}
                         && $event->{start_datetime} );
+
                     if ( ( $cmp != -1 ) ) {
                         push @{ $self->{timeline_href}->{events} }, $event;
 
@@ -361,7 +353,7 @@ sub write_html {
             }
             ]
     ) =~ s/ {4,8,12}//mg;
-    ( my $html = <<"    HTML") =~ s/^ {8}//gm;
+    (   my $html = qq[
         <!DOCTYPE html>
         <html>
         <head>
@@ -385,8 +377,8 @@ sub write_html {
             </script>
             <script type="text/javascript" src="color.js"></script>
         </body>
-        </html>
-    HTML
+        </html>]
+    ) =~ s/^ {8}//gm;
     open my $fh, ">", "./$self->{issue_key}/$self->{issue_key}.html"
         or croak(
         "Cannot open file $self->{issue_key}\/$self->{issue_key}.html: $!");
@@ -408,7 +400,7 @@ sub write_subtask_html {
             }
             ]
         ) =~ s/ {4,8,12}//mg;
-        ( my $html = <<"    HTML") =~ s/^ {8}//gm;
+        (   my $html = qq[
         <!DOCTYPE html>
         <html>
         <head>
@@ -432,8 +424,8 @@ sub write_subtask_html {
             </script>
             <script type="text/javascript" src="color.js"></script>
         </body>
-        </html>
-    HTML
+        </html>]
+        ) =~ s/^ {8}//gm;
         open my $fh, ">", "./$_->{parent}/$_->{issue_key}.html"
             or croak("Cannot open file $_->{parent}\/$_->{issue_key}: $!\n");
         print $fh $html or croak "Cannot print to file, $fh: $!";
