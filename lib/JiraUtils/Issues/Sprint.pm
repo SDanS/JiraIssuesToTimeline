@@ -432,7 +432,7 @@ width:185px;
 left: 10px;
 list-style-type: none;
 position: fixed;
-max-height: 800px;
+max-height: 500px;
 overflow-x: hidden;
 overflow-y: auto;
 }
